@@ -10,10 +10,26 @@ import Footer from '../components/Footer';
 
 const ServiceDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const { t } = useLanguage();
+  const { t, isLoading } = useLanguage();
   const navigate = useNavigate();
   const services = servicesData(t);
   const service = services.find(s => s.id === id);
+
+  // Show loading state while language context is initializing
+  if (isLoading) {
+    return (
+      <div className="min-h-screen">
+        <Header />
+        <div className="pt-20 pb-20 bg-gray-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   // Debug output
   if (!service) {

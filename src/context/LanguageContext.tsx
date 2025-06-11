@@ -313,7 +313,7 @@ const translations = {
     designStep4: 'Delivery & Support',
     designStep4Desc: 'Final delivery with all necessary files and ongoing support for implementation.',
     designClosing: 'Ready to elevate your brand with exceptional design and compelling content? Let\'s create visuals and messaging that truly represent your brand and connect with your audience.',
-
+    
     // About
     aboutTitle: 'About Bright-Byte',
     aboutDescription: 'We are AI & Tech Specialists - hands-on builders with deep domain knowledge. Our cutting-edge technology company specializes in AI, quantum computing, and comprehensive digital solutions, delivering innovative solutions that drive business transformation.',
@@ -869,7 +869,7 @@ const translations = {
     backToServices: 'العودة للخدمات',
     getInTouch: 'تواصل معنا',
     readyToStart: 'مستعد للبدء؟ تواصل معنا للحصول على استشارة مجانية.',
-
+    
     // About
     aboutTitle: 'من نحن',
     aboutDescription: 'نحن شركة رائدة متخصصة في تطوير الحلول التكنولوجية المتطورة. فريقنا من الخبراء يجمع بين المعرفة العميقة والخبرة العملية لتقديم حلول مبتكرة.',
@@ -1000,7 +1000,15 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   };
 
   const t = (key: string): string => {
-    return translations[language][key as keyof typeof translations[typeof language]] || key;
+    const translation = translations[language][key as keyof typeof translations[typeof language]];
+    
+    // Debug logging for missing translations
+    if (!translation) {
+      console.warn(`Missing translation for key: "${key}" in language: "${language}"`);
+      return key;
+    }
+    
+    return translation;
   };
 
   return (
