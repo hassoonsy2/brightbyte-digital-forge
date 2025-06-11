@@ -51,7 +51,7 @@ jobs:
           NODE_ENV: production
           
       - name: Create CNAME file for custom domain
-        run: echo "www.bright-byte.co" > dist/CNAME
+        run: echo "bright-byte.co" > dist/CNAME
         
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
