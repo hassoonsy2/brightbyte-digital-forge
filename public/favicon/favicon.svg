@@ -1,40 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background with gradient -->
-  <defs>
-    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
-    </linearGradient>
-    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#e5e7eb;stop-opacity:1" />
-    </linearGradient>
-  </defs>
+  <!-- Background -->
+  <rect width="512" height="512" fill="#8B5CF6" rx="64"/>
   
-  <!-- Background Circle -->
-  <circle cx="256" cy="256" r="256" fill="url(#bgGradient)"/>
-  
-  <!-- Outer ring for tech feel -->
-  <circle cx="256" cy="256" r="240" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
-  <circle cx="256" cy="256" r="220" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-  
-  <!-- Modern BB monogram -->
+  <!-- 3D Box -->
   <g transform="translate(256, 256)">
-    <!-- First B -->
-    <path d="M-80 -120 L-80 120 L-20 120 C20 120 52 88 52 48 C52 20 36 -4 12 -16 C36 -28 52 -52 52 -80 C52 -120 20 -152 -20 -152 L-80 -120 Z M-40 -112 L-20 -112 C-2 -112 12 -98 12 -80 C12 -62 -2 -48 -20 -48 L-40 -48 Z M-40 -8 L-20 -8 C-2 -8 12 6 12 24 C12 42 -2 56 -20 56 L-40 56 Z" fill="url(#textGradient)"/>
+    <!-- Top face -->
+    <path d="M-80 -40 L0 -80 L80 -40 L0 0 Z" fill="#A78BFA" stroke="#7C3AED" stroke-width="2"/>
     
-    <!-- Second B (offset) -->
-    <path d="M20 -120 L20 120 L80 120 C120 120 152 88 152 48 C152 20 136 -4 112 -16 C136 -28 152 -52 152 -80 C152 -120 120 -152 80 -152 L20 -120 Z M60 -112 L80 -112 C98 -112 112 -98 112 -80 C112 -62 98 -48 80 -48 L60 -48 Z M60 -8 L80 -8 C98 -8 112 6 112 24 C112 42 98 56 80 56 L60 56 Z" fill="url(#textGradient)" opacity="0.8"/>
+    <!-- Left face -->
+    <path d="M-80 -40 L0 0 L0 80 L-80 40 Z" fill="#7C3AED" stroke="#6D28D9" stroke-width="2"/>
+    
+    <!-- Right face -->
+    <path d="M0 0 L80 -40 L80 40 L0 80 Z" fill="#6D28D9" stroke="#5B21B6" stroke-width="2"/>
+    
+    <!-- Highlight edges for 3D effect -->
+    <path d="M-80 -40 L0 -80 L80 -40" stroke="#C4B5FD" stroke-width="3" fill="none"/>
+    <path d="M-80 -40 L0 0" stroke="#C4B5FD" stroke-width="2" fill="none"/>
+    <path d="M0 -80 L0 0" stroke="#DDD6FE" stroke-width="2" fill="none"/>
   </g>
-  
-  <!-- Tech accent dots -->
-  <circle cx="128" cy="128" r="4" fill="rgba(255,255,255,0.6)"/>
-  <circle cx="384" cy="128" r="4" fill="rgba(255,255,255,0.6)"/>
-  <circle cx="128" cy="384" r="4" fill="rgba(255,255,255,0.6)"/>
-  <circle cx="384" cy="384" r="4" fill="rgba(255,255,255,0.6)"/>
-  
-  <!-- Subtle circuit lines -->
-  <path d="M100 256 L140 256 M372 256 L412 256" stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-linecap="round"/>
-  <path d="M256 100 L256 140 M256 372 L256 412" stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-linecap="round"/>
 </svg> 
