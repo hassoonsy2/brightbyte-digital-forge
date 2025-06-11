@@ -1,11 +1,13 @@
-import React, { useState, useRef } from 'react';
-import { Mail, Phone, MapPin, Send, CheckCircle, X } from 'lucide-react';
+import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent } from '@/components/ui/card';
+import { Mail, Phone, MapPin, Send, CheckCircle, X } from 'lucide-react';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import { toast } from 'sonner';
-import { useLanguage } from '../context/LanguageContext';
 import emailjs from '@emailjs/browser';
 import { emailConfig } from '../config/email';
 
@@ -14,7 +16,6 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [submittedName, setSubmittedName] = useState('');
-  const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -86,10 +87,8 @@ See EmailJS_Setup_Instructions.md for detailed steps.`);
         setSubmittedName(firstName);
         setShowSuccessModal(true);
         
-        // Reset form safely using ref
-        if (formRef.current) {
-          formRef.current.reset();
-        }
+        // Reset form
+        e.currentTarget.reset();
 
         // Try to send auto-reply (but don't let it block the success message)
         try {
@@ -162,7 +161,9 @@ ${formData.get('message')}
   };
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-br from-blue-50 via-white to-blue-50">
+    <div className="min-h-screen">
+      <Header />
+      
       {/* Success Modal */}
       {showSuccessModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -220,95 +221,29 @@ ${formData.get('message')}
         </div>
       )}
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-            {t('contactTitle')}
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            {t('contactDescription')}
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Contact info cards */}
-          <div className="space-y-6">
-            <Card className="border-0 bg-white/80 backdrop-blur-sm shadow-lg">
-              <CardContent className="p-6">
-                <div className="flex items-center space-x-4">
-                  <div className="bg-blue-100 p-3 rounded-full">
-                    <Mail className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">{t('emailTitle')}</h3>
-                    <a 
-                      href="mailto:info@bright-byte.co" 
-                      className="text-gray-600 hover:text-blue-600 transition-colors"
-                    >
-                      info@bright-byte.co
-                    </a>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 bg-white/80 backdrop-blur-sm shadow-lg">
-              <CardContent className="p-6">
-                <div className="flex items-center space-x-4">
-                  <div className="bg-blue-100 p-3 rounded-full">
-                    <Phone className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">{t('phoneTitle')}</h3>
-                    <a 
-                      href="tel:+31657694468" 
-                      className="text-gray-600 hover:text-blue-600 transition-colors"
-                    >
-                      +31657694468
-                    </a>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 bg-white/80 backdrop-blur-sm shadow-lg">
-              <CardContent className="p-6">
-                <div className="flex items-center space-x-4">
-                  <div className="bg-blue-100 p-3 rounded-full">
-                    <MapPin className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">{t('locationTitle')}</h3>
-                    <p className="text-gray-600">Utrecht, The Netherlands</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Response Time Notice */}
-            <Card className="bg-blue-50 border-blue-200 shadow-xl">
-              <CardContent className="p-6">
-                <div className="flex items-center space-x-3">
-                  <div className="flex-shrink-0">
-                    <Mail className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-blue-900 mb-2">{t('quickResponseTitle')}</h3>
-                    <p className="text-blue-700 text-sm">
-                      {t('quickResponseDescription')}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+      {/* Hero Section */}
+      <section className="pt-32 pb-20 bg-gradient-to-b from-blue-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto">
+            <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+              {t('contactTitle')}
+            </h1>
+            <p className="text-xl text-gray-600 mb-8">
+              {t('contactDescription')}
+            </p>
           </div>
+        </div>
+      </section>
 
-          {/* Contact form */}
-          <div className="lg:col-span-2">
-            <Card className="border-0 bg-white/80 backdrop-blur-sm shadow-lg">
+      {/* Contact Form and Info Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Contact Form */}
+            <Card className="bg-white shadow-xl">
               <CardContent className="p-8">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('sendMessageTitle')}</h2>
-                <form onSubmit={handleSubmit} className="space-y-6" ref={formRef}>
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
@@ -398,11 +333,95 @@ ${formData.get('message')}
                 </form>
               </CardContent>
             </Card>
+
+            {/* Contact Information */}
+            <div className="space-y-8">
+              <Card className="bg-white shadow-xl">
+                <CardContent className="p-8">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('contactInfoTitle')}</h2>
+                  <div className="space-y-6">
+                    <div className="flex items-start space-x-4">
+                      <div className="flex-shrink-0">
+                        <Mail className="h-6 w-6 text-blue-600" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-gray-900">{t('emailTitle')}</h3>
+                        <a 
+                          href="mailto:info@bright-byte.co" 
+                          className="text-gray-600 hover:text-blue-600 transition-colors"
+                        >
+                          info@bright-byte.co
+                        </a>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-4">
+                      <div className="flex-shrink-0">
+                        <Phone className="h-6 w-6 text-blue-600" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-gray-900">{t('phoneTitle')}</h3>
+                        <a 
+                          href="tel:+31657694468" 
+                          className="text-gray-600 hover:text-blue-600 transition-colors"
+                        >
+                          +31657694468
+                        </a>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-4">
+                      <div className="flex-shrink-0">
+                        <MapPin className="h-6 w-6 text-blue-600" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-gray-900">{t('locationTitle')}</h3>
+                        <p className="text-gray-600">Utrecht, The Netherlands</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Response Time Notice */}
+              <Card className="bg-blue-50 border-blue-200 shadow-xl">
+                <CardContent className="p-6">
+                  <div className="flex items-center space-x-3">
+                    <div className="flex-shrink-0">
+                      <Mail className="h-6 w-6 text-blue-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-blue-900 mb-2">{t('quickResponseTitle')}</h3>
+                      <p className="text-blue-700 text-sm">
+                        {t('quickResponseDescription')}
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Map */}
+              <Card className="bg-white shadow-xl overflow-hidden">
+                <CardContent className="p-0">
+                  <div className="aspect-video">
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d78144.97567806421!2d5.084076!3d52.090737!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c66f4339d665d5%3A0xa9bc3e4f8245c0f4!2sUtrecht%2C%20Netherlands!5e0!3m2!1sen!2s!4v1704067200000!5m2!1sen!2s"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <Footer />
+    </div>
   );
 };
 
-export default Contact;
+export default Contact; 

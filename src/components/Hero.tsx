@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ArrowRight, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -8,9 +7,16 @@ const Hero = () => {
   const { t } = useLanguage();
 
   const scrollToSection = (sectionId: string) => {
+    console.log('Attempting to scroll to section:', sectionId);
     const element = document.getElementById(sectionId);
+    console.log('Found element:', element);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    } else {
+      console.error('Section not found:', sectionId);
     }
   };
 

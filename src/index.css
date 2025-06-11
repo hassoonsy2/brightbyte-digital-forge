@@ -99,3 +99,224 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* RTL Specific Styles */
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.rtl .dropdown-menu {
+  right: auto;
+  left: 0;
+}
+
+.rtl .space-x-8 > * + * {
+  margin-left: 0;
+  margin-right: 2rem;
+}
+
+.rtl .space-x-4 > * + * {
+  margin-left: 0;
+  margin-right: 1rem;
+}
+
+.rtl .space-x-2 > * + * {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+.rtl .space-x-1 > * + * {
+  margin-left: 0;
+  margin-right: 0.25rem;
+}
+
+/* RTL Animation Adjustments */
+.rtl .animate-spin {
+  animation-direction: reverse;
+}
+
+/* RTL Mobile Menu Adjustments */
+@media (max-width: 768px) {
+  .rtl .mobile-menu {
+    right: 0;
+    left: auto;
+  }
+}
+
+/* RTL Form Elements */
+.rtl input,
+.rtl textarea,
+.rtl select {
+  text-align: right;
+}
+
+/* RTL List Items */
+.rtl ul,
+.rtl ol {
+  padding-right: 1.5rem;
+  padding-left: 0;
+}
+
+/* RTL Icons and Images */
+.rtl .icon-flip {
+  transform: scaleX(-1);
+}
+
+/* RTL Navigation */
+.rtl nav button {
+  text-align: right;
+}
+
+/* RTL Dropdowns */
+.rtl .dropdown-content {
+  right: auto;
+  left: 0;
+}
+
+/* RTL Tooltips */
+.rtl .tooltip {
+  right: auto;
+  left: 0;
+}
+
+/* RTL Modal */
+.rtl .modal {
+  text-align: right;
+}
+
+/* RTL Table */
+.rtl table {
+  direction: rtl;
+}
+
+.rtl th,
+.rtl td {
+  text-align: right;
+}
+
+/* RTL Form Labels */
+.rtl label {
+  text-align: right;
+}
+
+/* RTL Form Groups */
+.rtl .form-group {
+  text-align: right;
+}
+
+/* RTL Buttons */
+.rtl button {
+  text-align: right;
+}
+
+/* RTL Cards */
+.rtl .card {
+  text-align: right;
+}
+
+/* RTL Headers */
+.rtl h1,
+.rtl h2,
+.rtl h3,
+.rtl h4,
+.rtl h5,
+.rtl h6 {
+  text-align: right;
+}
+
+/* RTL Paragraphs */
+.rtl p {
+  text-align: right;
+}
+
+/* RTL Lists */
+.rtl ul li,
+.rtl ol li {
+  text-align: right;
+}
+
+/* RTL Navigation Items */
+.rtl .nav-item {
+  text-align: right;
+}
+
+/* RTL Footer */
+.rtl footer {
+  text-align: right;
+}
+
+/* RTL Social Icons */
+.rtl .social-icons {
+  direction: rtl;
+}
+
+/* RTL Contact Form */
+.rtl .contact-form {
+  text-align: right;
+}
+
+/* RTL Service Cards */
+.rtl .service-card {
+  text-align: right;
+}
+
+/* RTL Testimonials */
+.rtl .testimonial {
+  text-align: right;
+}
+
+/* RTL Pricing Tables */
+.rtl .pricing-table {
+  text-align: right;
+}
+
+/* RTL FAQ */
+.rtl .faq-item {
+  text-align: right;
+}
+
+/* RTL Blog Posts */
+.rtl .blog-post {
+  text-align: right;
+}
+
+/* RTL Team Members */
+.rtl .team-member {
+  text-align: right;
+}
+
+/* RTL Features */
+.rtl .feature {
+  text-align: right;
+}
+
+/* RTL Call to Action */
+.rtl .cta {
+  text-align: right;
+}
+
+/* RTL Hero Section */
+.rtl .hero {
+  text-align: right;
+}
+
+/* RTL About Section */
+.rtl .about {
+  text-align: right;
+}
+
+/* RTL Services Section */
+.rtl .services {
+  text-align: right;
+}
+
+/* RTL Contact Section */
+.rtl .contact {
+  text-align: right;
+}
+
+/* RTL Footer Section */
+.rtl .footer {
+  text-align: right;
+}

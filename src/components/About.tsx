@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { CheckCircle, Award, Users, Rocket } from 'lucide-react';
+import { CheckCircle, Award, Users, Rocket, Brain } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -8,10 +7,10 @@ const About = () => {
   const { t } = useLanguage();
 
   const stats = [
-    { icon: Users, value: '50+', label: 'Expert Team Members' },
-    { icon: Award, value: '100+', label: 'Successful Projects' },
-    { icon: Rocket, value: '24/7', label: 'Technical Support' },
-    { icon: CheckCircle, value: '99%', label: 'Client Satisfaction' },
+    { icon: Brain, value: '', label: t('aiTechSpecialists') },
+    { icon: Award, value: '100+', label: t('successfulProjects') },
+    { icon: Rocket, value: '24/7', label: t('technicalSupport') },
+    { icon: CheckCircle, value: '99%', label: t('clientSatisfaction') },
   ];
 
   return (
@@ -52,10 +51,10 @@ const About = () => {
                   5+
                 </div>
                 <div className="text-xl font-semibold text-gray-800 mb-2">
-                  Years of Excellence
+                  {t('yearsOfExcellence')}
                 </div>
                 <div className="text-gray-600">
-                  Pioneering the future of technology
+                  {t('pioneeringFuture')}
                 </div>
               </div>
             </div>

@@ -1,102 +1,78 @@
-
 import React, { useState } from 'react';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import LanguageSwitcher from './LanguageSwitcher';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
-  const { language, setLanguage, t } = useLanguage();
-
-  const languages = [
-    { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'nl', name: 'Nederlands', flag: '🇳🇱' },
-    { code: 'ar', name: 'العربية', flag: '🇸🇦' },
-  ];
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMenuOpen(false);
-  };
+  const { t, language } = useLanguage();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-28">
           {/* Logo */}
-          <div className="flex items-center">
+          <Link to="/" className="flex items-center group ml-2">
             <img 
               src="/lovable-uploads/fef6dfd8-e93b-4f7d-b27a-be0177d4f632.png" 
               alt="Bright-Byte" 
-              className="h-8 w-auto"
+              className="h-20 w-auto transition-transform duration-300 group-hover:scale-105"
+              style={{ maxHeight: '90px' }}
             />
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <button 
-              onClick={() => scrollToSection('home')}
-              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+          <nav className={`hidden md:flex items-center ${
+            language === 'ar' 
+              ? 'space-x-0 gap-10' 
+              : 'space-x-8'
+          }`}>
+            <Link 
+              to="/"
+              className={`text-gray-700 hover:text-blue-600 transition-colors font-medium ${
+                language === 'ar' ? 'px-2' : ''
+              }`}
             >
               {t('home')}
-            </button>
-            <button 
-              onClick={() => scrollToSection('services')}
-              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+            </Link>
+            <Link 
+              to="/services"
+              className={`text-gray-700 hover:text-blue-600 transition-colors font-medium ${
+                language === 'ar' ? 'px-2' : ''
+              }`}
             >
               {t('services')}
-            </button>
-            <button 
-              onClick={() => scrollToSection('about')}
-              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+            </Link>
+            <Link 
+              to="/blog"
+              className={`text-gray-700 hover:text-blue-600 transition-colors font-medium ${
+                language === 'ar' ? 'px-2' : ''
+              }`}
+            >
+              Blog
+            </Link>
+            <Link 
+              to="/about"
+              className={`text-gray-700 hover:text-blue-600 transition-colors font-medium ${
+                language === 'ar' ? 'px-2' : ''
+              }`}
             >
               {t('about')}
-            </button>
-            <button 
-              onClick={() => scrollToSection('contact')}
-              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+            </Link>
+            <Link 
+              to="/contact"
+              className={`text-gray-700 hover:text-blue-600 transition-colors font-medium ${
+                language === 'ar' ? 'px-2' : ''
+              }`}
             >
               {t('contact')}
-            </button>
+            </Link>
           </nav>
 
           {/* Language Selector & Mobile Menu */}
           <div className="flex items-center space-x-4">
-            {/* Language Selector */}
-            <div className="relative">
-              <button
-                onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
-                className="flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition-colors"
-              >
-                <Globe className="h-4 w-4" />
-                <span className="hidden sm:inline text-sm font-medium">
-                  {languages.find(lang => lang.code === language)?.flag}
-                </span>
-              </button>
-              
-              {isLangMenuOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-10">
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      onClick={() => {
-                        setLanguage(lang.code as 'en' | 'nl' | 'ar');
-                        setIsLangMenuOpen(false);
-                      }}
-                      className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 flex items-center space-x-2 ${
-                        language === lang.code ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
-                      }`}
-                    >
-                      <span>{lang.flag}</span>
-                      <span>{lang.name}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+            <LanguageSwitcher />
 
             {/* Mobile menu button */}
             <button
@@ -111,31 +87,54 @@ const Header = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-200/20">
-            <nav className="flex flex-col space-y-3">
-              <button 
-                onClick={() => scrollToSection('home')}
-                className="text-gray-700 hover:text-blue-600 transition-colors font-medium text-left"
+            <nav className={`flex flex-col ${
+              language === 'ar' ? 'space-y-4' : 'space-y-3'
+            }`}>
+              <Link 
+                to="/"
+                className={`text-gray-700 hover:text-blue-600 transition-colors font-medium px-4 py-2 ${
+                  language === 'ar' ? 'text-right' : 'text-left'
+                }`}
+                onClick={() => setIsMenuOpen(false)}
               >
                 {t('home')}
-              </button>
-              <button 
-                onClick={() => scrollToSection('services')}
-                className="text-gray-700 hover:text-blue-600 transition-colors font-medium text-left"
+              </Link>
+              <Link 
+                to="/services"
+                className={`text-gray-700 hover:text-blue-600 transition-colors font-medium px-4 py-2 ${
+                  language === 'ar' ? 'text-right' : 'text-left'
+                }`}
+                onClick={() => setIsMenuOpen(false)}
               >
                 {t('services')}
-              </button>
-              <button 
-                onClick={() => scrollToSection('about')}
-                className="text-gray-700 hover:text-blue-600 transition-colors font-medium text-left"
+              </Link>
+              <Link 
+                to="/blog"
+                className={`text-gray-700 hover:text-blue-600 transition-colors font-medium px-4 py-2 ${
+                  language === 'ar' ? 'text-right' : 'text-left'
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Blog
+              </Link>
+              <Link 
+                to="/about"
+                className={`text-gray-700 hover:text-blue-600 transition-colors font-medium px-4 py-2 ${
+                  language === 'ar' ? 'text-right' : 'text-left'
+                }`}
+                onClick={() => setIsMenuOpen(false)}
               >
                 {t('about')}
-              </button>
-              <button 
-                onClick={() => scrollToSection('contact')}
-                className="text-gray-700 hover:text-blue-600 transition-colors font-medium text-left"
+              </Link>
+              <Link 
+                to="/contact"
+                className={`text-gray-700 hover:text-blue-600 transition-colors font-medium px-4 py-2 ${
+                  language === 'ar' ? 'text-right' : 'text-left'
+                }`}
+                onClick={() => setIsMenuOpen(false)}
               >
                 {t('contact')}
-              </button>
+              </Link>
             </nav>
           </div>
         )}
