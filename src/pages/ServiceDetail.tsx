@@ -20,7 +20,7 @@ const ServiceDetail = () => {
     return (
       <div className="min-h-screen">
         <Header />
-        <div className="pt-32 p-8 text-center text-red-600">
+        <div className="pt-20 p-8 text-center text-red-600">
           <p>Debug: id from URL: <b>{id}</b></p>
           <p>Debug: No service found for this id.</p>
           <p>Known service ids: {services.map(s => s.id).join(', ')}</p>
@@ -36,7 +36,7 @@ const ServiceDetail = () => {
   return (
     <div className="min-h-screen">
       <Header />
-      <section className="pt-32 pb-20 bg-gray-50">
+      <section className="pt-20 pb-20 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back Button */}
           <Button 

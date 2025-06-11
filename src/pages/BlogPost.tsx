@@ -266,7 +266,7 @@ const BlogPost = () => {
     return (
       <div className="min-h-screen">
         <Header />
-        <div className="pt-32 pb-20 text-center">
+        <div className="pt-20 pb-20 text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Post Not Found</h1>
           <Link to="/blog" className="text-blue-600 hover:text-blue-700">
             ← Back to Blog
@@ -282,7 +282,7 @@ const BlogPost = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-8 bg-gray-50">
+      <section className="pt-20 pb-8 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link 
             to="/blog" 

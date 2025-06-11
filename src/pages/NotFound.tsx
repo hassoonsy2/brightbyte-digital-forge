@@ -19,7 +19,7 @@ const NotFound = () => {
   return (
     <div className="min-h-screen">
       <Header />
-      <div className="pt-32 pb-20 bg-gray-50 min-h-[calc(100vh-4rem)] flex items-center">
+      <div className="pt-20 pb-20 bg-gray-50 min-h-[calc(100vh-4rem)] flex items-center">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {/* 404 Illustration */}
           <div className="mb-8">
