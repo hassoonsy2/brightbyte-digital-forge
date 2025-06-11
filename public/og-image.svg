@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e5e7eb;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="100" cy="100" r="60" fill="rgba(255,255,255,0.1)"/>
+  <circle cx="1100" cy="530" r="80" fill="rgba(255,255,255,0.1)"/>
+  <circle cx="1050" cy="150" r="40" fill="rgba(255,255,255,0.15)"/>
+  <circle cx="150" cy="500" r="50" fill="rgba(255,255,255,0.15)"/>
+  
+  <!-- Tech grid pattern -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  
+  <!-- Logo/Icon -->
+  <g transform="translate(150, 200)">
+    <!-- BB monogram -->
+    <path d="M-40 -60 L-40 60 L-10 60 C10 60 26 44 26 24 C26 10 18 -2 6 -8 C18 -14 26 -26 26 -40 C26 -60 10 -76 -10 -76 L-40 -60 Z M-20 -56 L-10 -56 C-1 -56 6 -49 6 -40 C6 -31 -1 -24 -10 -24 L-20 -24 Z M-20 -4 L-10 -4 C-1 -4 6 3 6 12 C6 21 -1 28 -10 28 L-20 28 Z" fill="white"/>
+    <path d="M10 -60 L10 60 L40 60 C60 60 76 44 76 24 C76 10 68 -2 56 -8 C68 -14 76 -26 76 -40 C76 -60 60 -76 40 -76 L10 -60 Z M30 -56 L40 -56 C49 -56 56 -49 56 -40 C56 -31 49 -24 40 -24 L30 -24 Z M30 -4 L40 -4 C49 -4 56 3 56 12 C56 21 49 28 40 28 L30 28 Z" fill="white" opacity="0.8"/>
+  </g>
+  
+  <!-- Main Title -->
+  <text x="350" y="280" font-family="Arial, sans-serif" font-size="64" font-weight="bold" fill="url(#textGradient)">
+    Bright-Byte Digital Forge
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="350" y="340" font-family="Arial, sans-serif" font-size="32" fill="rgba(255,255,255,0.9)">
+    AI Consulting • Quantum Computing • Software Development
+  </text>
+  
+  <!-- Location -->
+  <text x="350" y="390" font-family="Arial, sans-serif" font-size="24" fill="rgba(255,255,255,0.7)">
+    Utrecht, Netherlands • info@bright-byte.co
+  </text>
+  
+  <!-- Tech icons -->
+  <g transform="translate(350, 450)">
+    <!-- AI icon -->
+    <circle cx="0" cy="0" r="25" fill="rgba(255,255,255,0.2)"/>
+    <text x="0" y="8" font-family="Arial, sans-serif" font-size="20" text-anchor="middle" fill="white">AI</text>
+    
+    <!-- Quantum icon -->
+    <circle cx="80" cy="0" r="25" fill="rgba(255,255,255,0.2)"/>
+    <text x="80" y="8" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white">Q</text>
+    
+    <!-- Code icon -->
+    <circle cx="160" cy="0" r="25" fill="rgba(255,255,255,0.2)"/>
+    <text x="160" y="8" font-family="Arial, sans-serif" font-size="20" text-anchor="middle" fill="white">&lt;/&gt;</text>
+    
+    <!-- Automation icon -->
+    <circle cx="240" cy="0" r="25" fill="rgba(255,255,255,0.2)"/>
+    <text x="240" y="8" font-family="Arial, sans-serif" font-size="20" text-anchor="middle" fill="white">⚙</text>
+  </g>
+  
+  <!-- Website URL -->
+  <text x="350" y="550" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white">
+    bright-byte.co
+  </text>
+</svg> 

@@ -12,3 +12,13 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Sitemap
+Sitemap: https://bright-byte.co/sitemap.xml
+
+# Crawl-delay for general bots
+Crawl-delay: 1
+
+# Disallow certain paths if needed (currently allowing all)
+# Disallow: /admin/
+# Disallow: /private/

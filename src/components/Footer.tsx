@@ -13,9 +13,9 @@ const Footer = () => {
           {/* Logo and description */}
           <div className="md:col-span-2">
             <Link to="/" className="inline-block mb-4">
-              <img 
-                src="/lovable-uploads/fef6dfd8-e93b-4f7d-b27a-be0177d4f632.png" 
-                alt="Bright-Byte" 
+            <img 
+              src="/lovable-uploads/fef6dfd8-e93b-4f7d-b27a-be0177d4f632.png" 
+              alt="Bright-Byte" 
                 className="h-12 w-auto"
               />
             </Link>
@@ -50,7 +50,7 @@ const Footer = () => {
             {/* Social Media Links */}
             <div className="mt-6">
               <h4 className="text-sm font-semibold text-white mb-3">Follow Us</h4>
-              <div className="flex space-x-4">
+            <div className="flex space-x-4">
                 <a 
                   href="https://www.instagram.com/bright.byte.nl" 
                   target="_blank" 
