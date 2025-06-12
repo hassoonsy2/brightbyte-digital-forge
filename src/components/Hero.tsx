@@ -26,13 +26,8 @@ const Hero = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Typing animation effect - disabled on mobile for better performance
+  // Typing animation effect - simplified on mobile for better performance
   useEffect(() => {
-    if (isMobile) {
-      setTypedText(techWords[0]); // Show first word statically on mobile
-      return;
-    }
-    
     const currentWord = techWords[currentWordIndex];
     let currentIndex = 0;
     let isDeleting = false;
@@ -45,7 +40,7 @@ const Hero = () => {
         if (currentIndex === currentWord.length) {
           setTimeout(() => {
             isDeleting = true;
-          }, 2000);
+          }, isMobile ? 1500 : 2000); // Shorter pause on mobile
         }
       } else {
         setTypedText(currentWord.substring(0, currentIndex - 1));
@@ -56,10 +51,10 @@ const Hero = () => {
           setCurrentWordIndex((prev) => (prev + 1) % techWords.length);
         }
       }
-    }, isDeleting ? 50 : 100);
+    }, isDeleting ? (isMobile ? 75 : 50) : (isMobile ? 150 : 100)); // Slower typing on mobile
 
     return () => clearInterval(typeInterval);
-  }, [currentWordIndex, isMobile]);
+  }, [currentWordIndex, isMobile, techWords]);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -140,7 +135,7 @@ const Hero = () => {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-300% animate-gradient">
                 {typedText}
               </span>
-              {!isMobile && <span className="animate-blink text-blue-400">|</span>}
+              <span className="animate-blink text-blue-400">|</span>
             </div>
           </div>
 
