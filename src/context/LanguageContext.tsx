@@ -23,6 +23,7 @@ const translations = {
     heroDescription: 'Pioneering AI consulting, quantum computing, and software development to empower the digital future.',
     getStarted: 'Get Started',
     learnMore: 'Learn More',
+    heroButtonText: 'Let\'s Build Your Project Together!',
     
     // Services
     servicesTitle: 'Our Services',
@@ -411,6 +412,25 @@ const translations = {
     consultationCover2: 'Tailored technology solutions for your needs',
     consultationCover3: 'Implementation roadmap and next steps',
     consultationCover4: 'Investment insights and ROI projections',
+    
+    // Success Modal and Toast Messages - English
+    thankYouMessage: 'Thank you',
+    successModalMessage: 'Your message has been successfully sent to our team. We appreciate your interest in Bright-Byte and will get back to you within',
+    hoursResponse: '24 hours',
+    confirmationEmailSent: 'Confirmation email sent to your inbox',
+    continueExploring: 'Continue Exploring',
+    callUs: 'Call us:',
+    
+    // Toast Error Messages - English
+    emailServiceNotConfigured: 'Email service not configured yet. Please set up EmailJS credentials.',
+    emailError: 'Email Error:',
+    contactFormIssue: 'There was an issue with our contact form. Your email client has been opened as a backup. We apologize for the inconvenience.',
+    
+    // Additional Success Messages - English
+    messageSuccessfullySent: 'Your message has been successfully sent to our team',
+    appreciateInterest: 'We appreciate your interest in Bright-Byte',
+    responseWithin: 'and will get back to you within',
+    confirmationEmail: 'Confirmation email sent to your inbox'
   },
   nl: {
     // Navigation
@@ -425,6 +445,7 @@ const translations = {
     heroDescription: 'Vooroplopen in AI-consultancy, quantum computing en softwareontwikkeling voor het digitale tijdperk.',
     getStarted: 'Begin Nu',
     learnMore: 'Meer Informatie',
+    heroButtonText: 'Laten We Samen Uw Project Bouwen!',
     
     // Services
     servicesTitle: 'Onze Diensten',
@@ -813,6 +834,25 @@ const translations = {
     consultationCover2: 'Tailored technology solutions for your needs',
     consultationCover3: 'Implementation roadmap and next steps',
     consultationCover4: 'Investment insights and ROI projections',
+    
+    // Success Modal and Toast Messages - Dutch
+    thankYouMessage: 'Dank je wel',
+    successModalMessage: 'Uw bericht is succesvol verzonden naar ons team. We waarderen uw interesse in Bright-Byte en nemen binnen',
+    hoursResponse: '24 uur',
+    confirmationEmailSent: 'Bevestigingsmail verzonden naar uw inbox',
+    continueExploring: 'Verder Verkennen',
+    callUs: 'Bel ons:',
+    
+    // Toast Error Messages - Dutch
+    emailServiceNotConfigured: 'E-mailservice nog niet geconfigureerd. Stel EmailJS-referenties in.',
+    emailError: 'E-mail Fout:',
+    contactFormIssue: 'Er was een probleem met ons contactformulier. Uw e-mailclient is geopend als back-up. Onze excuses voor het ongemak.',
+    
+    // Additional Success Messages - Dutch
+    messageSuccessfullySent: 'Uw bericht is succesvol verzonden naar ons team',
+    appreciateInterest: 'We waarderen uw interesse in Bright-Byte',
+    responseWithin: 'en nemen contact op binnen',
+    confirmationEmail: 'Bevestigingsmail verzonden naar uw inbox'
   },
   ar: {
     // Navigation
@@ -827,6 +867,7 @@ const translations = {
     heroDescription: 'روّاد في استشارات الذكاء الاصطناعي، والحوسبة الكمومية، وتطوير البرمجيات لعصر رقمي متطور.',
     getStarted: 'ابدأ الآن',
     learnMore: 'اعرف المزيد',
+    heroButtonText: 'لنبني مشروعك معاً!',
     
     // Services
     servicesTitle: 'خدماتنا',
@@ -1025,101 +1066,97 @@ const translations = {
     mobileTitle: 'تطوير تطبيقات الجوال',
     mobileIntro: 'أنشئ تجارب جوال استثنائية تشرك المستخدمين وتحفز نمو الأعمال. فريق تطوير الجوال لدينا يبني تطبيقات أصلية ومتعددة المنصات تقدم أداءً متميزاً وتصميماً بديهياً ووظائف سلسة.',
     mobileServicesTitle: 'خدمات تطوير الجوال:',
-    mobileService1: 'Native iOS development (Swift/SwiftUI)',
-    mobileService2: 'Native Android development (Kotlin/Java)',
-    mobileService3: 'Cross-platform development (React Native, Flutter)',
-    mobileService4: 'Progressive Web Apps (PWA)',
-    mobileService5: 'Mobiele app UI/UX design',
-    mobileService6: 'App Store optimization (ASO)',
-    mobileService7: 'Mobile app testing and QA',
-    mobileService8: 'App maintenance and updates',
+    mobileService1: 'تطوير iOS الأصلي (Swift/SwiftUI)',
+    mobileService2: 'تطوير Android الأصلي (Kotlin/Java)',
+    mobileService3: 'التطوير متعدد المنصات (React Native, Flutter)',
+    mobileService4: 'تطبيقات الويب التقدمية (PWA)',
+    mobileService5: 'تصميم واجهة المستخدم/تجربة المستخدم للجوال',
+    mobileService6: 'تحسين متجر التطبيقات (ASO)',
+    mobileService7: 'اختبار وضمان جودة التطبيقات الجوالة',
+    mobileService8: 'صيانة وتحديث التطبيقات',
     mobileProcessTitle: 'عملية تطوير الجوال لدينا:',
     mobileStep1: 'الاستكشاف والاستراتيجية',
-    mobileStep1Desc: 'Marktonderzoek, concurrentieanalyse en feature prioritering.',
+    mobileStep1Desc: 'بحث السوق، تحليل المنافسين، وتحديد أولويات الميزات.',
     mobileStep2: 'التصميم والنماذج الأولية',
-    mobileStep2Desc: 'User experience design, wireframing, and interactive prototypes.',
+    mobileStep2Desc: 'تصميم تجربة المستخدم، الإطارات الشبكية، والنماذج الأولية التفاعلية.',
     mobileStep3: 'التطوير والاختبار',
-    mobileStep3Desc: 'Agile development with continuous testing and quality assurance.',
+    mobileStep3Desc: 'تطوير رشيق مع اختبار مستمر وضمان الجودة.',
     mobileStep4: 'الإطلاق والدعم',
-    mobileStep4Desc: 'App store submission, marketing support, and ongoing maintenance.',
-    mobileClosing: 'Ready to bring your mobile app idea to life? Let\'s create a mobile experience that your users will love and that drives your business forward.',
+    mobileStep4Desc: 'تقديم متجر التطبيقات، دعم التسويق، والصيانة المستمرة.',
+    mobileClosing: 'مستعد لتحويل فكرة تطبيقك الجوال إلى واقع؟ دعنا ننشئ تجربة جوال يحبها المستخدمون وتدفع عملك إلى الأمام.',
 
     // SEO - Arabic
     seoTitle: 'خدمات تحسين محركات البحث',
-    seoIntro: 'حسّن ظهورك في محركات البحث واجذب حركة مرور عضوية بخدمات تحسين محركات البحث الشاملة لدينا. نستخدم استراتيجيات مدفوعة بالبيانات وتقنيات القبعة البيضاء لمساعدة موقعك على ترتيب أعلى وجذب زوار أكثر تأهيلاً.',
-    seoServicesTitle: 'خدمات تحسين محركات البحث:',
+    seoIntro: 'حسّن ظهورك في محركات البحث واجذب المزيد من الزوار العضويين بخدمات تحسين محركات البحث الشاملة لدينا. نستخدم استراتيجيات مدفوعة بالبيانات وتقنيات آمنة لمساعدة موقعك على الحصول على ترتيب أعلى وجذب زوار مؤهلين أكثر.',
+    seoServicesTitle: 'خدمات تحسين محركات البحث لدينا:',
     seoService1: 'تدقيق وتحسين تحسين محركات البحث التقني',
     seoService2: 'بحث الكلمات المفتاحية والاستراتيجية',
-    seoService3: 'تحسين المحتوى والصفحة',
-    seoService4: 'بناء الروابط وتحسين السلطة',
-    seoService5: 'تحسين محركات البحث المحلية',
-    seoService6: 'تحسين محركات البحث للتجارة الإلكترونية',
-    seoService7: 'تحسين الأجهزة المحمولة والسرعة',
-    seoService8: 'مراقبة وتقارير تحسين محركات البحث',
-    seoProcessTitle: 'عملية تحسين محركات البحث لدينا:',
-    seoStep1: 'التدقيق والتحليل',
-    seoStep1Desc: 'تقييم شامل لأداء موقعك الحالي في محركات البحث وتحديد الفرص.',
-    seoStep2: 'البحث والاستراتيجية',
-    seoStep2Desc: 'بحث متعمق للكلمات المفتاحية وتطوير استراتيجية تحسين محركات البحث المخصصة.',
-    seoStep3: 'التنفيذ والتحسين',
-    seoStep3Desc: 'تنفيذ التحسينات التقنية والمحتوى وبناء السلطة.',
-    seoStep4: 'المراقبة والتقارير',
-    seoStep4Desc: 'تتبع مستمر للأداء مع تقارير شهرية مفصلة وتحسينات مستمرة.',
-    seoClosing: 'مستعد لتعزيز ظهورك على الإنترنت وجذب المزيد من العملاء المؤهلين؟ دعنا نطور استراتيجية تحسين محركات البحث التي تحقق نتائج طويلة المدى.',
+    seoService3: 'تحسين محركات البحث داخل الصفحة',
+    seoService4: 'استراتيجية وتحسين المحتوى',
+    seoService5: 'بناء الروابط والتواصل',
+    seoService6: 'تحسين محركات البحث المحلي للشركات',
+    seoService7: 'تتبع أداء تحسين محركات البحث والتقارير',
+    seoService8: 'تحليل المنافسين والرؤى',
+    seoResultsTitle: 'نتائج تحسين محركات البحث التي يمكنك توقعها:',
+    seoResult1: '↑ 150%',
+    seoResult1Desc: 'متوسط زيادة الزوار العضويين',
+    seoResult2: '3-6 أشهر',
+    seoResult2Desc: 'الوقت لرؤية نتائج مهمة',
+    seoResult3: '↑ 200%',
+    seoResult3Desc: 'تحسين في ترتيب الكلمات المفتاحية',
+    seoClosing: 'مستعد للهيمنة على نتائج البحث وجذب المزيد من الزوار العضويين إلى موقعك؟ دعنا نطور استراتيجية تحسين محركات البحث التي تحقق نتائج طويلة المدى.',
 
     // Web Development - Arabic
-    webTitle: 'تطوير المواقع الإلكترونية',
-    webIntro: 'أنشئ حضوراً رقمياً قوياً بمواقع إلكترونية حديثة وسريعة الاستجابة مصممة لتحويل الزوار إلى عملاء. خدمات تطوير الويب لدينا تجمع بين التصميم المذهل والوظائف القوية وتحسين محركات البحث لتقديم نتائج استثنائية.',
+    webTitle: 'تطوير الويب الحديث',
+    webIntro: 'أنشئ مواقع ويب مذهلة وعالية الأداء تأسر جمهورك وتحفز التحويلات. فريق تطوير الويب لدينا يجمع بين التكنولوجيا المتطورة والتصميم الاستثنائي لتقديم مواقع ويب تعمل بشكل مثالي على جميع الأجهزة.',
     webServicesTitle: 'خدمات تطوير الويب:',
-    webService1: 'تصميم وتطوير مواقع مخصصة',
-    webService2: 'مواقع التجارة الإلكترونية',
-    webService3: 'تطبيقات الويب التفاعلية',
-    webService4: 'أنظمة إدارة المحتوى (CMS)',
-    webService5: 'التصميم المتجاوب والمحمول أولاً',
-    webService6: 'تحسين الأداء والسرعة',
-    webService7: 'تكامل واجهات برمجة التطبيقات',
+    webService1: 'تطوير مواقع ويب مخصصة',
+    webService2: 'حلول التجارة الإلكترونية (Shopify, WooCommerce)',
+    webService3: 'أنظمة إدارة المحتوى (WordPress, Strapi)',
+    webService4: 'تطبيقات الويب التقدمية (PWA)',
+    webService5: 'تطوير وتكامل واجهات برمجة التطبيقات',
+    webService6: 'تحسين أداء المواقع',
+    webService7: 'تدقيق الأمان والتنفيذ',
     webService8: 'صيانة ودعم المواقع',
     webTechnologiesTitle: 'التقنيات التي نستخدمها:',
-    frontend: 'الواجهة الأمامية',
-    frontendTech1: '• React.js & Next.js',
-    frontendTech2: '• Vue.js & Nuxt.js',
-    frontendTech3: '• Angular & TypeScript',
-    frontendTech4: '• HTML5, CSS3, JavaScript',
-    backend: 'الواجهة الخلفية',
-    backendTech1: '• Node.js & Express',
-    backendTech2: '• Python & Django/Flask',
-    backendTech3: '• PHP & Laravel',
-    backendTech4: '• قواعد البيانات (MySQL, PostgreSQL, MongoDB)',
-    webClosing: 'مستعد لإطلاق موقع إلكتروني يحقق نتائج حقيقية؟ دعنا ننشئ حضوراً رقمياً يمثل علامتك التجارية ويحقق أهدافك التجارية.',
+    react: 'React',
+    reactDesc: 'إطار عمل الواجهة الأمامية',
+    nodejs: 'Node.js',
+    nodejsDesc: 'بيئة تشغيل الخلفية',
+    nextjs: 'Next.js',
+    nextjsDesc: 'إطار عمل شامل',
+    typescript: 'TypeScript',
+    typescriptDesc: 'أمان الأنواع',
+    webClosing: 'مستعد لبناء موقع ويب يتميز عن المنافسة؟ دعنا ننشئ حضوراً على الويب يحقق النتائج وينمي عملك.',
 
     // Design & Content - Arabic
     designTitle: 'التصميم وإنشاء المحتوى',
-    designIntro: 'ارفع علامتك التجارية بتصميم استثنائي ومحتوى مقنع يجسد جوهر علامتك التجارية.',
-    designServicesTitle: 'خدمات التصميم والمحتوى:',
-    designService1: 'تصميم الهوية البصرية والعلامة التجارية',
-    designService2: 'تصميم واجهة المستخدم/تجربة المستخدم',
-    designService3: 'تصميم الجرافيك والمواد التسويقية',
-    designService4: 'إنشاء المحتوى وكتابة الإعلانات',
-    designService5: 'إنتاج الفيديو والرسوم المتحركة',
-    designService6: 'تصميم وسائل التواصل الاجتماعي',
-    designService7: 'التصوير الفوتوغرافي وتحرير الصور',
+    designIntro: 'أنشئ هوية بصرية مقنعة ومحتوى جذاب يتردد صداه مع جمهورك. فريقنا الإبداعي يجمع بين الخبرة الفنية والتفكير الاستراتيجي لتقديم تصاميم ومحتوى يقوي علامتك التجارية ويحفز المشاركة.',
+    designServicesTitle: 'خدماتنا الإبداعية:',
+    designService1: 'هوية العلامة التجارية وتصميم الشعار',
+    designService2: 'تصميم واجهة المستخدم/تجربة المستخدم للمواقع والتطبيقات',
+    designService3: 'المواد التسويقية والضمانات',
+    designService4: 'رسوميات وسائل التواصل الاجتماعي والقوالب',
+    designService5: 'استراتيجية وإنشاء المحتوى',
+    designService6: 'إنتاج وتحرير الفيديو',
+    designService7: 'التصوير وتحرير الصور',
     designService8: 'تصميم وإنتاج المطبوعات',
     designProcessTitle: 'عملية التصميم لدينا:',
     designStep1: 'البحث والاستكشاف',
     designStep1Desc: 'فهم علامتك التجارية وجمهورك والسوق لتوجيه اتجاهنا الإبداعي.',
-    designStep2: 'التصميم والتصميم',
-    designStep2Desc: 'إنشاء مفاهيم أولية ولوحات مزاجية تجسد جوهر علامتك التجارية.',
-    designStep3: 'التصميم والتنقيح',
+    designStep2: 'تطوير المفهوم',
+    designStep2Desc: 'إنشاء مفاهيم أولية ولوحات مزاجية تلتقط جوهر علامتك التجارية.',
+    designStep3: 'التصميم والتحسين',
     designStep3Desc: 'تطوير تصاميم مفصلة مع تكرارات متعددة بناءً على ملاحظاتك.',
     designStep4: 'التسليم والدعم',
-    designStep4Desc: 'التسليم النهائي مع جميع الملفات المطلوبة والدعم المستمر للتنفيذ.',
-    designClosing: 'مستعد لرفع علامتك التجارية بتصميم استثنائي ومحتوى مقنع؟ دعنا ننشئ مرئيات ورسائل تمثل علامتك التجارية حقاً وتتواصل مع جمهورك.',
+    designStep4Desc: 'التسليم النهائي مع جميع الملفات الضرورية والدعم المستمر للتنفيذ.',
+    designClosing: 'مستعد لرفع مستوى علامتك التجارية بتصميم استثنائي ومحتوى مقنع؟ دعنا ننشئ مرئيات ورسائل تمثل علامتك التجارية حقاً وتتواصل مع جمهورك.',
     
-    // About
-    aboutTitle: 'من نحن',
-    aboutDescription: 'نحن شركة رائدة متخصصة في تطوير الحلول التكنولوجية المتطورة. فريقنا من الخبراء يجمع بين المعرفة العميقة والخبرة العملية لتقديم حلول مبتكرة.',
+    // About - Arabic
+    aboutTitle: 'حول Bright-Byte',
+    aboutDescription: 'نحن متخصصون في الذكاء الاصطناعي والتكنولوجيا - بناة عمليون بمعرفة عميقة في المجال. شركتنا التكنولوجية المتطورة متخصصة في الذكاء الاصطناعي والحوسبة الكمية والحلول الرقمية الشاملة، وتقدم حلولاً مبتكرة تحفز التحول التجاري.',
     
-    // About Stats
+    // About Stats - Arabic
     aiTechSpecialists: 'متخصصو الذكاء الاصطناعي والتكنولوجيا',
     successfulProjects: 'مشاريع ناجحة',
     technicalSupport: 'الدعم التقني',
@@ -1127,39 +1164,39 @@ const translations = {
     yearsOfExcellence: 'سنوات من التميز',
     pioneeringFuture: 'ريادة مستقبل التكنولوجيا',
     
-    // About Page Content
-    aboutPageTitle: 'من نحن',
-    aboutPageSubtitle: 'نحن فريق من المبتكرين المتحمسين المكرسين لتحويل الأعمال من خلال التكنولوجيا المتطورة والحلول الإبداعية.',
+    // About Page Content - Arabic
+    aboutPageTitle: 'حول Bright-Byte',
+    aboutPageSubtitle: 'نحن فريق من المبتكرين المتحمسين المكرسين لتحويل الشركات من خلال التكنولوجيا المتطورة والحلول الإبداعية.',
     
-    // Our Story Section
+    // Our Story Section - Arabic
     ourStoryTitle: 'قصتنا',
-    ourStoryParagraph1: 'تأسست Bright-Byte في عام 2025 من رؤية لسد الفجوة بين ممارسات الأعمال التقليدية والحلول التكنولوجية الحديثة. بدأت رحلتنا بفريق صغير من التقنيين المتحمسين وتطورت إلى شركة تحول رقمي متكاملة الخدمات.',
-    ourStoryParagraph2: 'اليوم، نحن فخورون بخدمة عملاء من مختلف الصناعات، مساعدتهم على التنقل في المشهد الرقمي وتحقيق أهدافهم التجارية من خلال حلول تكنولوجية مبتكرة.',
+    ourStoryParagraph1: 'تأسست في عام 2025، نشأت Bright-Byte من رؤية لسد الفجوة بين ممارسات الأعمال التقليدية والحلول التكنولوجية الحديثة. بدأت رحلتنا بفريق صغير من التقنيين المتحمسين ونمت لتصبح شركة تحول رقمي كاملة الخدمات.',
+    ourStoryParagraph2: 'اليوم، نحن فخورون بخدمة العملاء عبر مختلف الصناعات، ومساعدتهم على التنقل في المشهد الرقمي وتحقيق أهدافهم التجارية من خلال حلول تكنولوجية مبتكرة.',
     getInTouchButton: 'تواصل معنا',
     
-    // Our Values Section
-    ourValuesTitle: 'Onze Waarden',
-    ourValuesSubtitle: 'De principes die alles wat we doen leiden',
-    valueInnovationTitle: 'Innovatie',
-    valueInnovationDesc: 'Grenzen verleggen en geavanceerde technologieën omarmen om uitzonderlijke oplossingen te leveren.',
-    valueCollaborationTitle: 'Samenwerking',
-    valueCollaborationDesc: 'Samenwerken met onze klanten en partners om gezamenlijk succes te bereiken.',
-    valueExcellenceTitle: 'Excellentie',
-    valueExcellenceDesc: 'Toegewijd aan het leveren van de hoogste kwaliteit in alles wat we doen.',
-    valueCreativityTitle: 'Creativiteit',
-    valueCreativityDesc: 'Out-of-the-box denken om complexe uitdagingen op te lossen met unieke oplossingen.',
+    // Our Values Section - Arabic
+    ourValuesTitle: 'قيمنا',
+    ourValuesSubtitle: 'المبادئ التي توجه كل ما نقوم به',
+    valueInnovationTitle: 'الابتكار',
+    valueInnovationDesc: 'دفع الحدود واحتضان التقنيات المتطورة لتقديم حلول استثنائية.',
+    valueCollaborationTitle: 'التعاون',
+    valueCollaborationDesc: 'العمل معاً مع عملائنا وشركائنا لتحقيق النجاح المشترك.',
+    valueExcellenceTitle: 'التميز',
+    valueExcellenceDesc: 'ملتزمون بتقديم أعلى جودة في كل ما نقوم به.',
+    valueCreativityTitle: 'الإبداع',
+    valueCreativityDesc: 'التفكير خارج الصندوق لحل التحديات المعقدة بحلول فريدة.',
     
-    // Our Mission Section
-    ourMissionTitle: 'Onze Missie',
-    ourMissionDescription: 'Bedrijven empoweren met innovatieve technologische oplossingen die groei, efficiëntie en succes in het digitale tijdperk stimuleren.',
+    // Our Mission Section - Arabic
+    ourMissionTitle: 'مهمتنا',
+    ourMissionDescription: 'تمكين الشركات بحلول تكنولوجية مبتكرة تحفز النمو والكفاءة والنجاح في العصر الرقمي.',
     exploreServicesButton: 'استكشف خدماتنا',
     
-    // Contact
+    // Contact - Arabic
     contactTitle: 'تواصل معنا',
     contactDescription: 'مستعد لتحويل عملك بالتكنولوجيا المتطورة؟',
     contactUs: 'اتصل بنا',
     
-    // Contact Page
+    // Contact Page - Arabic
     sendMessageTitle: 'أرسل لنا رسالة',
     contactInfoTitle: 'معلومات الاتصال',
     firstName: 'الاسم الأول',
@@ -1171,47 +1208,67 @@ const translations = {
     sending: 'جاري الإرسال...',
     messageSent: 'تم إرسال الرسالة بنجاح! سنعود إليك قريباً.',
     
-    // Form placeholders
+    // Form placeholders - Arabic
     firstNamePlaceholder: 'أحمد',
     lastNamePlaceholder: 'محمد',
     emailPlaceholder: 'ahmed@example.com',
     subjectPlaceholder: 'كيف يمكننا مساعدتك؟',
     messagePlaceholder: 'أخبرنا عن مشروعك...',
     
-    // Contact Info Headers
+    // Contact Info Headers - Arabic
     emailTitle: 'البريد الإلكتروني',
     phoneTitle: 'الهاتف',
     locationTitle: 'الموقع',
     
-    // Quick Response Guarantee
+    // Quick Response Guarantee - Arabic
     quickResponseTitle: 'ضمان الاستجابة السريعة',
-    quickResponseDescription: 'نحن نفخر بالتواصل السريع. ستحصل على بريد إلكتروني تأكيدي فوري، وسيرد فريقنا شخصياً على استفسارك خلال 24 ساعة.',
+    quickResponseDescription: 'نحن نفخر بالتواصل السريع. ستتلقى بريداً إلكترونياً تأكيدياً تلقائياً فوراً، وسيرد فريقنا شخصياً على استفسارك خلال 24 ساعة.',
     
-    // Footer
-    footerDescription: 'Innovative technology solutions transforming businesses with advanced AI, quantum computing, and digital solutions.',
-    footerServicesTitle: 'Services',
-    footerContactTitle: 'Contact',
-    footerLocationTitle: 'Location',
-    footerCopyright: '2025 Bright-Byte. All rights reserved.',
+    // Footer - Arabic
+    footerDescription: 'حلول تكنولوجية مبتكرة تحول الشركات بالذكاء الاصطناعي المتقدم والحوسبة الكمية والحلول الرقمية.',
+    footerServicesTitle: 'الخدمات',
+    footerContactTitle: 'اتصل بنا',
+    footerLocationTitle: 'الموقع',
+    footerCopyright: '2025 Bright-Byte. جميع الحقوق محفوظة.',
     privacyPolicy: 'سياسة الخصوصية',
     
-    // Consultation CTA
+    // Consultation CTA - Arabic
     consultationAvailable: 'استشارة مجانية متاحة',
     consultationTitle: 'احجز استشارتك المجانية',
     consultationSubtitle: 'لمدة 30 دقيقة',
-    consultationDescription: 'Ready to transform your business with cutting-edge technology? Let\'s discuss your project and discover how our expertise in AI, quantum computing, and digital innovation can drive your success.',
+    consultationDescription: 'مستعد لتحويل عملك بالتكنولوجيا المتطورة؟ دعنا نناقش مشروعك ونكتشف كيف يمكن لخبرتنا في الذكاء الاصطناعي والحوسبة الكمية والابتكار الرقمي أن تحفز نجاحك.',
     consultationBenefit1: 'استشارة مجانية لمدة 30 دقيقة',
-    consultationBenefit2: 'إرشاد خبير مخصص لاحتياجاتك',
+    consultationBenefit2: 'إرشاد خبير مصمم خصيصاً لاحتياجاتك',
     consultationBenefit3: 'لا يوجد التزام أو تعهد مطلوب',
     consultationBenefit4: 'استجابة سريعة خلال 24 ساعة',
-    consultationButton: 'Get In Touch',
+    consultationButton: 'تواصل معنا',
     consultationDuration: '30 دقيقة',
     consultationType: 'استشارة استراتيجية',
     consultationCoverTitle: 'ما سنغطيه:',
-    consultationCover1: 'تحديات وأهداف عملك الحالية',
-    consultationCover2: 'حلول تكنولوجية مخصصة لاحتياجاتك',
+    consultationCover1: 'تحديات عملك الحالية وأهدافك',
+    consultationCover2: 'حلول تكنولوجية مصممة خصيصاً لاحتياجاتك',
     consultationCover3: 'خارطة طريق التنفيذ والخطوات التالية',
     consultationCover4: 'رؤى الاستثمار وتوقعات العائد على الاستثمار',
+    
+    // Success Modal and Toast Messages - Arabic
+    thankYouMessage: 'شكراً لك', // "Thank you"
+    successModalTitle: '🎉', // Emoji stays the same
+    successModalMessage: 'تم إرسال رسالتك بنجاح إلى فريقنا. نحن نقدر اهتمامك بـ Bright-Byte وسنعود إليك خلال',
+    hoursResponse: '24 ساعة',
+    confirmationEmailSent: 'تم إرسال بريد تأكيد إلى صندوق الوارد الخاص بك',
+    continueExploring: 'متابعة الاستكشاف',
+    callUs: 'اتصل بنا:',
+    
+    // Toast Error Messages - Arabic
+    emailServiceNotConfigured: 'خدمة البريد الإلكتروني غير مُعدة بعد. يرجى إعداد بيانات اعتماد EmailJS.',
+    emailError: 'خطأ في البريد الإلكتروني:',
+    contactFormIssue: 'كان هناك مشكلة في نموذج الاتصال الخاص بنا. تم فتح عميل البريد الإلكتروني الخاص بك كبديل. نعتذر عن الإزعاج.',
+    
+    // Additional Success Messages - Arabic
+    messageSuccessfullySent: 'تم إرسال رسالتك بنجاح إلى فريقنا',
+    appreciateInterest: 'نحن نقدر اهتمامك بـ Bright-Byte',
+    responseWithin: 'وسنعود إليك خلال',
+    confirmationEmail: 'بريد تأكيد مُرسل إلى صندوق الوارد'
   },
 };
 

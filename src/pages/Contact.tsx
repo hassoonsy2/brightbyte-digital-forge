@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -16,6 +16,7 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [submittedName, setSubmittedName] = useState('');
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -87,16 +88,20 @@ See EmailJS_Setup_Instructions.md for detailed steps.`);
         setSubmittedName(firstName);
         setShowSuccessModal(true);
         
-        // Reset form
-        e.currentTarget.reset();
+        // Reset form safely using ref
+        if (formRef.current) {
+          formRef.current.reset();
+        }
 
         // Try to send auto-reply (but don't let it block the success message)
         try {
           console.log('Sending auto-reply...');
           const autoReplyParams = {
-            to_name: firstName,
-            to_email: formData.get('email'),
+            name: firstName,
+            email: formData.get('email'),
+            title: formData.get('subject'),
             from_name: 'Bright-Byte Team',
+            reply_to: 'info@bright-byte.co',
             subject: 'Thank you for contacting Bright-Byte',
             message: `Dear ${firstName},
 
@@ -110,7 +115,13 @@ Best regards,
 The Bright-Byte Team
 
 ---
-This is an automated message. Please do not reply to this email.`
+This is an automated message. Please do not reply to this email.`,
+            // Additional variables that match your template
+            user_name: firstName,
+            user_email: formData.get('email'),
+            company_name: 'Bright-Byte',
+            company_email: 'info@bright-byte.co',
+            company_phone: '+31657694468'
           };
 
           console.log('Auto-reply params:', autoReplyParams);
@@ -124,11 +135,31 @@ This is an automated message. Please do not reply to this email.`
           );
 
           console.log('Auto-reply result:', autoReplyResult);
-          console.log('✅ Auto-reply sent successfully!');
+          
+          if (autoReplyResult.status === 200) {
+            console.log('✅ Auto-reply sent successfully!');
+          } else {
+            console.warn('⚠️ Auto-reply sent but with unexpected status:', autoReplyResult.status);
+          }
           
         } catch (autoReplyError) {
           console.error('❌ Auto-reply failed, but main message was sent:', autoReplyError);
+          
+          // Log detailed error information for debugging
+          if (autoReplyError instanceof Error) {
+            console.error('Auto-reply error details:', {
+              message: autoReplyError.message,
+              name: autoReplyError.name,
+              stack: autoReplyError.stack
+            });
+          }
+          
           // Don't show error to user since main email worked
+          console.log('💡 Auto-reply troubleshooting tips:');
+          console.log('1. Check if auto-reply template exists in EmailJS dashboard');
+          console.log('2. Verify template variables match the parameters sent');
+          console.log('3. Ensure email service allows sending to external addresses');
+          console.log('4. Check EmailJS service limits and quotas');
         }
       }
     } catch (error) {
@@ -243,7 +274,7 @@ ${formData.get('message')}
             <Card className="bg-white shadow-xl">
               <CardContent className="p-8">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('sendMessageTitle')}</h2>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6" ref={formRef}>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
@@ -375,6 +406,28 @@ ${formData.get('message')}
                       <div>
                         <h3 className="text-lg font-semibold text-gray-900">{t('locationTitle')}</h3>
                         <p className="text-gray-600">Utrecht, The Netherlands</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-4">
+                      <div className="flex-shrink-0">
+                        <div className="h-6 w-6 bg-blue-600 rounded flex items-center justify-center">
+                          <span className="text-white text-xs font-bold">K</span>
+                        </div>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-gray-900">{t('kvkTitle')}</h3>
+                        <p className="text-gray-600">96355220</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-4">
+                      <div className="flex-shrink-0">
+                        <div className="h-6 w-6 bg-blue-600 rounded flex items-center justify-center">
+                          <span className="text-white text-xs font-bold">B</span>
+                        </div>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-gray-900">{t('btwTitle')}</h3>
+                        <p className="text-gray-600">NL867575098B01</p>
                       </div>
                     </div>
                   </div>

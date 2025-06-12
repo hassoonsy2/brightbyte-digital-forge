@@ -45,12 +45,20 @@ const Footer = () => {
                 <MapPin className="h-4 w-4 text-blue-400" />
                 <span className="text-sm">Utrecht, The Netherlands</span>
               </div>
+              <div className="flex items-center space-x-3 text-gray-400">
+                <span className="text-sm font-medium text-blue-400">KVK:</span>
+                <span className="text-sm">96355220</span>
+              </div>
+              <div className="flex items-center space-x-3 text-gray-400">
+                <span className="text-sm font-medium text-blue-400">BTW:</span>
+                <span className="text-sm">NL867575098B01</span>
+              </div>
             </div>
             
             {/* Social Media Links */}
             <div className="mt-6">
               <h4 className="text-sm font-semibold text-white mb-3">Follow Us</h4>
-            <div className="flex space-x-4">
+            <div className="flex space-x-6">
                 <a 
                   href="https://www.instagram.com/bright.byte.nl" 
                   target="_blank" 
@@ -165,7 +173,7 @@ const Footer = () => {
             <p className="text-gray-400 text-center sm:text-left">&copy; {t('footerCopyright')}</p>
             
             {/* Social Media Links - Bottom */}
-            <div className="flex space-x-4 mt-4 sm:mt-0">
+            <div className="flex space-x-6 mt-4 sm:mt-0">
               <a 
                 href="https://www.instagram.com/bright.byte.nl" 
                 target="_blank" 

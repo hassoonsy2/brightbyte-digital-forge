@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank you for contacting Bright-Byte</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            line-height: 1.6;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .logo {
+            color: #ffffff;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .tagline {
+            color: #e0e7ff;
+            font-size: 14px;
+            margin: 0;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .greeting {
+            font-size: 24px;
+            color: #1f2937;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .message {
+            color: #4b5563;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-left: 4px solid #3b82f6;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .highlight-text {
+            color: #1e40af;
+            font-weight: 600;
+            margin: 0;
+        }
+        .contact-info {
+            background-color: #f9fafb;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        .contact-title {
+            color: #1f2937;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #4b5563;
+        }
+        .contact-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            color: #3b82f6;
+        }
+        .footer {
+            background-color: #1f2937;
+            color: #9ca3af;
+            padding: 30px;
+            text-align: center;
+        }
+        .footer-logo {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .footer-text {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .social-links {
+            margin-top: 20px;
+        }
+        .social-link {
+            display: inline-block;
+            margin: 0 10px;
+            color: #60a5fa;
+            text-decoration: none;
+        }
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
+            margin: 30px 0;
+        }
+        @media (max-width: 600px) {
+            .email-container {
+                margin: 0;
+                box-shadow: none;
+            }
+            .header, .content, .footer {
+                padding: 20px;
+            }
+            .greeting {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">Bright-Byte</div>
+            <p class="tagline">AI & Tech Specialists</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <h1 class="greeting">Hello {{name}}! 👋</h1>
+            
+            <p class="message">
+                Thank you for reaching out to us! We have successfully received your message regarding "<strong>{{title}}</strong>" and truly appreciate your interest in Bright-Byte.
+            </p>
+
+            <div class="highlight-box">
+                <p class="highlight-text">
+                    🚀 Our team will review your inquiry and get back to you within 24 hours with a personalized response.
+                </p>
+            </div>
+
+            <p class="message">
+                In the meantime, feel free to explore our services and blog for more insights into our work with AI consulting, quantum computing, and software development.
+            </p>
+
+            <div class="divider"></div>
+
+            <div class="contact-info">
+                <h3 class="contact-title">Need immediate assistance?</h3>
+                
+                <div class="contact-item">
+                    <span class="contact-icon">📧</span>
+                    <span>Email: info@bright-byte.co</span>
+                </div>
+                
+                <div class="contact-item">
+                    <span class="contact-icon">📞</span>
+                    <span>Phone: +31657694468</span>
+                </div>
+                
+                <div class="contact-item">
+                    <span class="contact-icon">📍</span>
+                    <span>Location: Utrecht, The Netherlands</span>
+                </div>
+                
+                <div class="contact-item">
+                    <span class="contact-icon">🏢</span>
+                    <span>KVK: 96355220 | BTW: NL867575098B01</span>
+                </div>
+            </div>
+
+            <p class="message">
+                We're excited to learn more about your project and explore how we can help bring your vision to life with cutting-edge technology solutions.
+            </p>
+
+            <p class="message">
+                <strong>Best regards,</strong><br>
+                The Bright-Byte Team
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-logo">Bright-Byte</div>
+            <p class="footer-text">
+                Pioneering AI consulting, quantum computing, and software development<br>
+                to empower the digital future.
+            </p>
+            
+            <div class="social-links">
+                <a href="https://bright-byte.co" class="social-link">🌐 Website</a>
+                <a href="mailto:info@bright-byte.co" class="social-link">📧 Email</a>
+                <a href="tel:+31657694468" class="social-link">📞 Call</a>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <p style="font-size: 12px; color: #6b7280; margin: 0;">
+                This is an automated message. Please do not reply directly to this email.<br>
+                © 2024 Bright-Byte. All rights reserved.
+            </p>
+        </div>
+    </div>
+</body>
+</html> 

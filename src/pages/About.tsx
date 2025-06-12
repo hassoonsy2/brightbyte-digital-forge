@@ -19,7 +19,7 @@ const About = () => {
     {
       icon: Users,
       title: t('valueCollaborationTitle'),
-      description: t('valueCollaborationDesc')
+      description: t('valueCollaborationDesc') 
     },
     {
       icon: Award,

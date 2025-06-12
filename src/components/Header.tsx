@@ -17,8 +17,8 @@ const Header = () => {
             <img 
               src="/lovable-uploads/fef6dfd8-e93b-4f7d-b27a-be0177d4f632.png" 
               alt="Bright-Byte" 
-              className="h-20 w-auto transition-transform duration-300 group-hover:scale-105"
-              style={{ maxHeight: '90px' }}
+              className="h-66 w-auto transition-transform duration-300 group-hover:scale-115"
+              style={{ maxHeight: '110px' }}
             />
           </Link>
 

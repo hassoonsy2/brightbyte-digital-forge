@@ -95,9 +95,11 @@ See EmailJS_Setup_Instructions.md for detailed steps.`);
         try {
           console.log('Sending auto-reply...');
           const autoReplyParams = {
-            to_name: firstName,
-            to_email: formData.get('email'),
+            name: firstName,
+            email: formData.get('email'),
+            title: formData.get('subject'),
             from_name: 'Bright-Byte Team',
+            reply_to: 'info@bright-byte.co',
             subject: 'Thank you for contacting Bright-Byte',
             message: `Dear ${firstName},
 
@@ -111,7 +113,13 @@ Best regards,
 The Bright-Byte Team
 
 ---
-This is an automated message. Please do not reply to this email.`
+This is an automated message. Please do not reply to this email.`,
+            // Additional variables that match your template
+            user_name: firstName,
+            user_email: formData.get('email'),
+            company_name: 'Bright-Byte',
+            company_email: 'info@bright-byte.co',
+            company_phone: '+31657694468'
           };
 
           console.log('Auto-reply params:', autoReplyParams);
@@ -125,11 +133,31 @@ This is an automated message. Please do not reply to this email.`
           );
 
           console.log('Auto-reply result:', autoReplyResult);
-          console.log('✅ Auto-reply sent successfully!');
+          
+          if (autoReplyResult.status === 200) {
+            console.log('✅ Auto-reply sent successfully!');
+          } else {
+            console.warn('⚠️ Auto-reply sent but with unexpected status:', autoReplyResult.status);
+          }
           
         } catch (autoReplyError) {
           console.error('❌ Auto-reply failed, but main message was sent:', autoReplyError);
+          
+          // Log detailed error information for debugging
+          if (autoReplyError instanceof Error) {
+            console.error('Auto-reply error details:', {
+              message: autoReplyError.message,
+              name: autoReplyError.name,
+              stack: autoReplyError.stack
+            });
+          }
+          
           // Don't show error to user since main email worked
+          console.log('💡 Auto-reply troubleshooting tips:');
+          console.log('1. Check if auto-reply template exists in EmailJS dashboard');
+          console.log('2. Verify template variables match the parameters sent');
+          console.log('3. Ensure email service allows sending to external addresses');
+          console.log('4. Check EmailJS service limits and quotas');
         }
       }
     } catch (error) {
