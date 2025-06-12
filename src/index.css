@@ -113,7 +113,7 @@
   animation: slideInRight 0.6s ease-out forwards;
 }
 
-.bg-300% {
+.bg-300\% {
   background-size: 300% 300%;
 }
 
@@ -279,6 +279,14 @@ html {
 /* RTL Animation Adjustments */
 .rtl .animate-spin {
   animation-direction: reverse;
+}
+
+.rtl .animate-slideInLeft {
+  animation: slideInRight 0.6s ease-out forwards;
+}
+
+.rtl .animate-slideInRight {
+  animation: slideInLeft 0.6s ease-out forwards;
 }
 
 /* RTL Mobile Menu Adjustments */
@@ -464,4 +472,76 @@ html {
 /* RTL Footer Section */
 .rtl .footer {
   text-align: right;
+}
+
+/* Mobile-specific optimizations for Hero section */
+@media (max-width: 768px) {
+  /* Reduce motion for better mobile performance */
+  .animate-float {
+    animation: none;
+  }
+  
+  /* Optimize background blur for mobile */
+  .backdrop-blur-sm {
+    backdrop-filter: blur(4px);
+  }
+  
+  /* Ensure text is readable on small screens */
+  .hero-text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Optimize button touch targets for mobile */
+  .mobile-touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Reduce animation complexity on mobile */
+  .animate-gradient {
+    animation: none;
+    background: linear-gradient(to right, #60a5fa, #a78bfa, #60a5fa);
+  }
+  
+  /* Optimize spacing for mobile viewports */
+  .mobile-hero-spacing {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+/* Very small screens (phones in portrait) */
+@media (max-width: 480px) {
+  /* Further reduce animations */
+  .animate-pulse {
+    animation-duration: 3s;
+  }
+  
+  /* Ensure minimum touch targets */
+  button {
+    min-height: 44px;
+  }
+  
+  /* Optimize text sizing for very small screens */
+  .hero-mobile-text {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+  }
+}
+
+/* Landscape mobile optimization */
+@media (max-width: 768px) and (orientation: landscape) {
+  .hero-landscape {
+    min-height: 100vh;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  
+  /* Reduce vertical spacing in landscape */
+  .hero-landscape .mb-8 {
+    margin-bottom: 1rem;
+  }
+  
+  .hero-landscape .mb-12 {
+    margin-bottom: 2rem;
+  }
 }
