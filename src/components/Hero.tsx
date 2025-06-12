@@ -8,6 +8,9 @@ const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [typedText, setTypedText] = useState('');
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [currentCharIndex, setCurrentCharIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   
   const techWords = ['AI Solutions', 'Quantum Computing', 'Automation', 'Innovation'];
@@ -26,35 +29,44 @@ const Hero = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Typing animation effect - simplified on mobile for better performance
+  // Typing animation effect with improved state management
   useEffect(() => {
     const currentWord = techWords[currentWordIndex];
-    let currentIndex = 0;
-    let isDeleting = false;
+    
+    if (isPaused) {
+      const pauseTimeout = setTimeout(() => {
+        setIsPaused(false);
+        setIsDeleting(true);
+      }, isMobile ? 1500 : 2000);
+      
+      return () => clearTimeout(pauseTimeout);
+    }
     
     const typeInterval = setInterval(() => {
       if (!isDeleting) {
-        setTypedText(currentWord.substring(0, currentIndex + 1));
-        currentIndex++;
-        
-        if (currentIndex === currentWord.length) {
-          setTimeout(() => {
-            isDeleting = true;
-          }, isMobile ? 1500 : 2000); // Shorter pause on mobile
+        // Typing forward
+        if (currentCharIndex < currentWord.length) {
+          setTypedText(currentWord.substring(0, currentCharIndex + 1));
+          setCurrentCharIndex(prev => prev + 1);
+        } else {
+          // Finished typing word, pause before deleting
+          setIsPaused(true);
         }
       } else {
-        setTypedText(currentWord.substring(0, currentIndex - 1));
-        currentIndex--;
-        
-        if (currentIndex === 0) {
-          isDeleting = false;
-          setCurrentWordIndex((prev) => (prev + 1) % techWords.length);
+        // Deleting backward
+        if (currentCharIndex > 0) {
+          setTypedText(currentWord.substring(0, currentCharIndex - 1));
+          setCurrentCharIndex(prev => prev - 1);
+        } else {
+          // Finished deleting, move to next word
+          setIsDeleting(false);
+          setCurrentWordIndex(prev => (prev + 1) % techWords.length);
         }
       }
-    }, isDeleting ? (isMobile ? 75 : 50) : (isMobile ? 150 : 100)); // Slower typing on mobile
+    }, isDeleting ? (isMobile ? 75 : 50) : (isMobile ? 150 : 100));
 
     return () => clearInterval(typeInterval);
-  }, [currentWordIndex, isMobile, techWords]);
+  }, [currentWordIndex, currentCharIndex, isDeleting, isPaused, isMobile, techWords]);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
