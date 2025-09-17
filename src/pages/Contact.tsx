@@ -10,6 +10,7 @@ import Footer from '../components/Footer';
 import { toast } from 'sonner';
 import emailjs from '@emailjs/browser';
 import { emailConfig } from '../config/email';
+import { trackContactFormSubmission } from '../utils/analytics';
 
 const Contact = () => {
   const { t } = useLanguage();
@@ -87,6 +88,9 @@ See EmailJS_Setup_Instructions.md for detailed steps.`);
         // Show success modal immediately after main email is sent
         setSubmittedName(firstName);
         setShowSuccessModal(true);
+        
+        // Track form submission in analytics
+        trackContactFormSubmission();
         
         // Reset form safely using ref
         if (formRef.current) {

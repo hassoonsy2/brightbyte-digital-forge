@@ -12,7 +12,6 @@ import { Globe } from 'lucide-react';
 const languageNames = {
   en: 'English',
   nl: 'Nederlands',
-  ar: 'العربية',
 };
 
 const LanguageSwitcher = () => {
@@ -39,7 +38,7 @@ const LanguageSwitcher = () => {
         {Object.entries(languageNames).map(([code, name]) => (
           <DropdownMenuItem
             key={code}
-            onClick={() => setLanguage(code as 'en' | 'nl' | 'ar')}
+            onClick={() => setLanguage(code as 'en' | 'nl')}
             className={language === code ? 'bg-accent' : ''}
           >
             {name}
