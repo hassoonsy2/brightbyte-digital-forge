@@ -70,7 +70,11 @@ const ServiceDetail = () => {
                 <Icon className="h-10 w-10 text-white" />
               </div>
               <h1 className="text-3xl font-bold mb-4 text-gray-900">{service.title}</h1>
-              <p className="text-lg text-gray-700 mb-8">{service.description}</p>
+              
+              {/* Show general description only for services without detailed content */}
+              {!['ai-consulting', 'web-development', 'machine-learning', 'quantum-computing', 'software-development', 'automation', 'data-marketing', 'social-media', 'mobile-development', 'seo', 'design-content'].includes(service.id) && (
+                <p className="text-lg text-gray-700 mb-8">{service.description}</p>
+              )}
               
               {/* Extended content for each service */}
               <div className="text-gray-600 text-base leading-relaxed space-y-6 w-full text-left">
@@ -116,11 +120,101 @@ const ServiceDetail = () => {
                   </>
                 )}
 
+                {service.id === 'web-development' && (
+                  <>
+                    <img src="/software.png" alt="Web Development" className="rounded-lg shadow mb-6 w-full max-w-2xl mx-auto" />
+                    
+                    <h2 className="text-2xl font-semibold mb-4 text-gray-900">{t('webTitle')}</h2>
+                    <p>{t('webIntro')}</p>
+                    
+                    <h3 className="text-xl font-semibold mb-3 text-gray-900">{t('webServicesTitle')}</h3>
+                    <ul className="list-disc ml-6 mb-6 space-y-2">
+                      <li>{t('webService1')}</li>
+                      <li>{t('webService2')}</li>
+                      <li>{t('webService3')}</li>
+                      <li>{t('webService4')}</li>
+                      <li>{t('webService5')}</li>
+                      <li>{t('webService6')}</li>
+                      <li>{t('webService7')}</li>
+                      <li>{t('webService8')}</li>
+                    </ul>
+
+                    <h3 className="text-xl font-semibold mb-3 text-gray-900">{t('webTechnologiesTitle')}</h3>
+                    <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg mb-6">
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div className="bg-white p-4 rounded-lg shadow-sm">
+                          <h4 className="font-semibold text-blue-600 mb-2">{t('react')}</h4>
+                          <p className="text-sm text-gray-600">{t('reactDesc')}</p>
+                        </div>
+                        <div className="bg-white p-4 rounded-lg shadow-sm">
+                          <h4 className="font-semibold text-green-600 mb-2">{t('nodejs')}</h4>
+                          <p className="text-sm text-gray-600">{t('nodejsDesc')}</p>
+                        </div>
+                        <div className="bg-white p-4 rounded-lg shadow-sm">
+                          <h4 className="font-semibold text-purple-600 mb-2">{t('nextjs')}</h4>
+                          <p className="text-sm text-gray-600">{t('nextjsDesc')}</p>
+                        </div>
+                        <div className="bg-white p-4 rounded-lg shadow-sm">
+                          <h4 className="font-semibold text-blue-800 mb-2">{t('typescript')}</h4>
+                          <p className="text-sm text-gray-600">{t('typescriptDesc')}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <p>{t('webClosing')}</p>
+                  </>
+                )}
+
+                {service.id === 'machine-learning' && (
+                  <>
+                    <img src="/Machine_learning.png" alt="Machine Learning" className="rounded-lg shadow mb-6 w-full max-w-2xl mx-auto" />
+                    
+                    <h2 className="text-2xl font-semibold mb-4 text-gray-900">{t('mlTitle')}</h2>
+                    <p>{t('mlIntro')}</p>
+                    
+                    <h3 className="text-xl font-semibold mb-3 text-gray-900">{t('mlServicesTitle')}</h3>
+                    <ul className="list-disc ml-6 mb-6 space-y-2">
+                      <li>{t('mlService1')}</li>
+                      <li>{t('mlService2')}</li>
+                      <li>{t('mlService3')}</li>
+                      <li>{t('mlService4')}</li>
+                      <li>{t('mlService5')}</li>
+                      <li>{t('mlService6')}</li>
+                      <li>{t('mlService7')}</li>
+                      <li>{t('mlService8')}</li>
+                    </ul>
+
+                    <h3 className="text-xl font-semibold mb-3 text-gray-900">{t('mlIndustryTitle')}</h3>
+                    <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg mb-6">
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div className="bg-white p-4 rounded-lg shadow-sm">
+                          <h4 className="font-semibold text-green-600 mb-2">{t('financialServices')}</h4>
+                          <p className="text-sm text-gray-600">{t('financialServicesDesc')}</p>
+                        </div>
+                        <div className="bg-white p-4 rounded-lg shadow-sm">
+                          <h4 className="font-semibold text-blue-600 mb-2">{t('healthcare')}</h4>
+                          <p className="text-sm text-gray-600">{t('healthcareDesc')}</p>
+                        </div>
+                        <div className="bg-white p-4 rounded-lg shadow-sm">
+                          <h4 className="font-semibold text-purple-600 mb-2">{t('retail')}</h4>
+                          <p className="text-sm text-gray-600">{t('retailDesc')}</p>
+                        </div>
+                        <div className="bg-white p-4 rounded-lg shadow-sm">
+                          <h4 className="font-semibold text-orange-600 mb-2">{t('manufacturing')}</h4>
+                          <p className="text-sm text-gray-600">{t('manufacturingDesc')}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <p>{t('mlClosing')}</p>
+                  </>
+                )}
+
                 {service.id === 'quantum-computing' && (
                   <>
                     <img src="/quntum.png" alt="Quantum Computing" className="rounded-lg shadow mb-6 w-full max-w-2xl mx-auto" />
                     
-                    <h2 className="text-2xl font-semibold mb-4 text-gray-900">{t('quantumTitle')}</h2>
+                    <h2 className="text-2xl font-semibold mb-4 text-gray-900">{t('quantumServiceTitle')}</h2>
                     <p>{t('quantumIntro')}</p>
                     
                     <h3 className="text-xl font-semibold mb-3 text-gray-900">{t('quantumServicesTitle')}</h3>
@@ -339,49 +433,6 @@ const ServiceDetail = () => {
                   </>
                 )}
 
-                {service.id === 'machine-learning' && (
-                  <>
-                    <img src="/Machine_learning.png" alt="Machine Learning" className="rounded-lg shadow mb-6 w-full max-w-2xl mx-auto" />
-                    
-                    <h2 className="text-2xl font-semibold mb-4 text-gray-900">{t('machineLearningTitle')}</h2>
-                    <p>{t('machineLearningIntro')}</p>
-                    
-                    <h3 className="text-xl font-semibold mb-3 text-gray-900">{t('machineLearningServicesTitle')}</h3>
-                    <ul className="list-disc ml-6 mb-6 space-y-2">
-                      <li>{t('machineLearningService1')}</li>
-                      <li>{t('machineLearningService2')}</li>
-                      <li>{t('machineLearningService3')}</li>
-                      <li>{t('machineLearningService4')}</li>
-                      <li>{t('machineLearningService5')}</li>
-                      <li>{t('machineLearningService6')}</li>
-                      <li>{t('machineLearningService7')}</li>
-                      <li>{t('machineLearningService8')}</li>
-                    </ul>
-
-                    <h3 className="text-xl font-semibold mb-3 text-gray-900">{t('machineLearningIndustryTitle')}</h3>
-                    <div className="space-y-4 mb-6">
-                      <div className="border-l-4 border-blue-500 pl-4">
-                        <h4 className="font-semibold text-gray-900">{t('financialServices')}</h4>
-                        <p className="text-sm text-gray-600">{t('financialServicesDesc')}</p>
-                      </div>
-                      <div className="border-l-4 border-green-500 pl-4">
-                        <h4 className="font-semibold text-gray-900">{t('healthcare')}</h4>
-                        <p className="text-sm text-gray-600">{t('healthcareDesc')}</p>
-                      </div>
-                      <div className="border-l-4 border-purple-500 pl-4">
-                        <h4 className="font-semibold text-gray-900">{t('retail')}</h4>
-                        <p className="text-sm text-gray-600">{t('retailDesc')}</p>
-                      </div>
-                      <div className="border-l-4 border-orange-500 pl-4">
-                        <h4 className="font-semibold text-gray-900">{t('manufacturing')}</h4>
-                        <p className="text-sm text-gray-600">{t('manufacturingDesc')}</p>
-                      </div>
-                    </div>
-
-                    <p>{t('machineLearningClosing')}</p>
-                  </>
-                )}
-
                 {service.id === 'mobile-development' && (
                   <>
                     <img src="/mobiel.png" alt="Mobile Development" className="rounded-lg shadow mb-6 w-full max-w-2xl mx-auto" />
@@ -463,49 +514,6 @@ const ServiceDetail = () => {
                     </div>
 
                     <p>{t('seoClosing')}</p>
-                  </>
-                )}
-
-                {service.id === 'web-development' && (
-                  <>
-                    <img src="/software.png" alt="Web Development" className="rounded-lg shadow mb-6 w-full max-w-2xl mx-auto" />
-                    
-                    <h2 className="text-2xl font-semibold mb-4 text-gray-900">{t('webTitle')}</h2>
-                    <p>{t('webIntro')}</p>
-                    
-                    <h3 className="text-xl font-semibold mb-3 text-gray-900">{t('webServicesTitle')}</h3>
-                    <ul className="list-disc ml-6 mb-6 space-y-2">
-                      <li>{t('webService1')}</li>
-                      <li>{t('webService2')}</li>
-                      <li>{t('webService3')}</li>
-                      <li>{t('webService4')}</li>
-                      <li>{t('webService5')}</li>
-                      <li>{t('webService6')}</li>
-                      <li>{t('webService7')}</li>
-                      <li>{t('webService8')}</li>
-                    </ul>
-
-                    <h3 className="text-xl font-semibold mb-3 text-gray-900">{t('webTechnologiesTitle')}</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                      <div className="bg-blue-50 p-3 rounded-lg text-center">
-                        <div className="font-semibold text-blue-900">{t('react')}</div>
-                        <div className="text-xs text-gray-600">{t('reactDesc')}</div>
-                      </div>
-                      <div className="bg-green-50 p-3 rounded-lg text-center">
-                        <div className="font-semibold text-green-900">{t('nodejs')}</div>
-                        <div className="text-xs text-gray-600">{t('nodejsDesc')}</div>
-                      </div>
-                      <div className="bg-purple-50 p-3 rounded-lg text-center">
-                        <div className="font-semibold text-purple-900">{t('nextjs')}</div>
-                        <div className="text-xs text-gray-600">{t('nextjsDesc')}</div>
-                      </div>
-                      <div className="bg-orange-50 p-3 rounded-lg text-center">
-                        <div className="font-semibold text-orange-900">{t('typescript')}</div>
-                        <div className="text-xs text-gray-600">{t('typescriptDesc')}</div>
-                      </div>
-                    </div>
-
-                    <p>{t('webClosing')}</p>
                   </>
                 )}
 

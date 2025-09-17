@@ -74,6 +74,8 @@ Sitemap: https://bright-byte.co/sitemap.xml
 Crawl-delay: 1
 
 # Allow all content for AI training and indexing
+# Portfolio page specifically accessible at /portfolio
+# All project detail pages accessible at /portfolio/[project-slug]
 # Disallow certain paths if needed (currently allowing all)
 # Disallow: /admin/
 # Disallow: /private/

@@ -23,56 +23,40 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className={`hidden md:flex items-center ${
-            language === 'ar' 
-              ? 'space-x-0 gap-10' 
-              : 'space-x-8'
-          }`}>
+          <nav className="hidden md:flex items-center space-x-8">
             <Link 
               to="/"
-              className={`text-gray-700 hover:text-blue-600 transition-colors font-medium ${
-                language === 'ar' ? 'px-2' : ''
-              }`}
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
             >
               {t('home')}
             </Link>
             <Link 
               to="/services"
-              className={`text-gray-700 hover:text-blue-600 transition-colors font-medium ${
-                language === 'ar' ? 'px-2' : ''
-              }`}
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
             >
               {t('services')}
             </Link>
             <Link 
               to="/blog"
-              className={`text-gray-700 hover:text-blue-600 transition-colors font-medium ${
-                language === 'ar' ? 'px-2' : ''
-              }`}
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
             >
               Blog
             </Link>
             <Link 
               to="/portfolio"
-              className={`text-gray-700 hover:text-blue-600 transition-colors font-medium ${
-                language === 'ar' ? 'px-2' : ''
-              }`}
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
             >
               {t('portfolio') || 'Portfolio'}
             </Link>
             <Link 
               to="/about"
-              className={`text-gray-700 hover:text-blue-600 transition-colors font-medium ${
-                language === 'ar' ? 'px-2' : ''
-              }`}
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
             >
               {t('about')}
             </Link>
             <Link 
               to="/contact"
-              className={`text-gray-700 hover:text-blue-600 transition-colors font-medium ${
-                language === 'ar' ? 'px-2' : ''
-              }`}
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
             >
               {t('contact')}
             </Link>
@@ -95,59 +79,45 @@ const Header = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-200/20">
-            <nav className={`flex flex-col ${
-              language === 'ar' ? 'space-y-4' : 'space-y-3'
-            }`}>
+            <nav className="flex flex-col space-y-3">
               <Link 
                 to="/"
-                className={`text-gray-700 hover:text-blue-600 transition-colors font-medium px-4 py-2 ${
-                  language === 'ar' ? 'text-right' : 'text-left'
-                }`}
+                className="text-gray-700 hover:text-blue-600 transition-colors font-medium px-4 py-2 text-left"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {t('home')}
               </Link>
               <Link 
                 to="/services"
-                className={`text-gray-700 hover:text-blue-600 transition-colors font-medium px-4 py-2 ${
-                  language === 'ar' ? 'text-right' : 'text-left'
-                }`}
+                className="text-gray-700 hover:text-blue-600 transition-colors font-medium px-4 py-2 text-left"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {t('services')}
               </Link>
               <Link 
                 to="/blog"
-                className={`text-gray-700 hover:text-blue-600 transition-colors font-medium px-4 py-2 ${
-                  language === 'ar' ? 'text-right' : 'text-left'
-                }`}
+                className="text-gray-700 hover:text-blue-600 transition-colors font-medium px-4 py-2 text-left"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Blog
               </Link>
               <Link 
                 to="/portfolio"
-                className={`text-gray-700 hover:text-blue-600 transition-colors font-medium px-4 py-2 ${
-                  language === 'ar' ? 'text-right' : 'text-left'
-                }`}
+                className="text-gray-700 hover:text-blue-600 transition-colors font-medium px-4 py-2 text-left"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {t('portfolio') || 'Portfolio'}
               </Link>
               <Link 
                 to="/about"
-                className={`text-gray-700 hover:text-blue-600 transition-colors font-medium px-4 py-2 ${
-                  language === 'ar' ? 'text-right' : 'text-left'
-                }`}
+                className="text-gray-700 hover:text-blue-600 transition-colors font-medium px-4 py-2 text-left"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {t('about')}
               </Link>
               <Link 
                 to="/contact"
-                className={`text-gray-700 hover:text-blue-600 transition-colors font-medium px-4 py-2 ${
-                  language === 'ar' ? 'text-right' : 'text-left'
-                }`}
+                className="text-gray-700 hover:text-blue-600 transition-colors font-medium px-4 py-2 text-left"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {t('contact')}
