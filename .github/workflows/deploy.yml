@@ -55,7 +55,12 @@ jobs:
       - name: Verify build output
         run: |
           ls -la dist/
-          echo "Build verification complete"
+          if [ ! -f dist/index.html ]; then
+            echo "ERROR: index.html not found in dist folder"
+            exit 1
+          fi
+          echo "✓ index.html found"
+          echo "✓ Build verification complete"
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
