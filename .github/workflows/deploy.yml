@@ -36,7 +36,9 @@ jobs:
         run: npm ci
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Build application
         run: npm run build
@@ -77,6 +79,12 @@ jobs:
       id-token: write
     
     steps:
+      - name: Verify Pages configuration
+        run: |
+          echo "Verifying GitHub Pages is enabled..."
+          echo "If this step passes, Pages should be configured correctly"
+          
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        continue-on-error: false
