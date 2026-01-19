@@ -1,26 +1,20 @@
 name: Deploy Bright-Byte Website
 
 on:
-  # Trigger the workflow on push to main branch
   push:
     branches: [ main, master ]
-  
-  # Allow manual triggering from the Actions tab
   workflow_dispatch:
 
-# Set permissions for GitHub Pages deployment
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Build job
   build:
     runs-on: ubuntu-latest
     permissions:
@@ -31,29 +25,28 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
-          
+
       - name: Install dependencies
         run: npm ci
-        
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-        
+
       - name: Build application
         run: npm run build
         env:
-          # Add your environment variables here if needed
           VITE_EMAILJS_SERVICE_ID: ${{ secrets.VITE_EMAILJS_SERVICE_ID }}
           VITE_EMAILJS_TEMPLATE_ID: ${{ secrets.VITE_EMAILJS_TEMPLATE_ID }}
           VITE_EMAILJS_AUTO_REPLY_TEMPLATE_ID: ${{ secrets.VITE_EMAILJS_AUTO_REPLY_TEMPLATE_ID }}
           VITE_EMAILJS_PUBLIC_KEY: ${{ secrets.VITE_EMAILJS_PUBLIC_KEY }}
           NODE_ENV: production
-          
+
       - name: Create CNAME file for custom domain
         run: |
           echo "bright-byte.co" > dist/CNAME
@@ -69,11 +62,9 @@ jobs:
         with:
           path: ./dist
 
-  # Deployment job
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
     permissions:
@@ -83,4 +74,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 
+        uses: actions/deploy-pages@v4
