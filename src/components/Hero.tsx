@@ -13,7 +13,7 @@ const Hero = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   
-  const techWords = ['AI Solutions', 'Quantum Computing', 'Automation', 'Innovation'];
+  const techWords = t('heroTechWords').split(',');
   
   useEffect(() => {
     setIsVisible(true);
@@ -133,7 +133,7 @@ const Hero = () => {
           {/* Animated badge - better mobile visibility */}
           <div className={`inline-flex items-center px-4 py-2 md:px-4 md:py-2 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-sm mb-6 md:mb-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <Sparkles className="w-4 h-4 md:w-4 md:h-4 text-blue-400 mr-2 animate-pulse" />
-            <span className="text-blue-300 text-sm md:text-sm font-medium">AI & Tech Specialists</span>
+            <span className="text-blue-300 text-sm md:text-sm font-medium">{t('heroBadge')}</span>
           </div>
 
           {/* Main heading with better mobile sizing */}
@@ -175,10 +175,10 @@ const Hero = () => {
           {/* Tech indicators - mobile optimized grid */}
           <div className={`grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-8 max-w-3xl mx-auto px-4 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             {[
-              { icon: Brain, label: 'AI', desc: 'Artificial Intelligence', delay: '0s' },
-              { icon: Cpu, label: 'QC', desc: 'Quantum Computing', delay: '0.1s' },
-              { icon: Zap, label: 'ML', desc: 'Machine Learning', delay: '0.2s' },
-              { icon: Sparkles, label: 'AUTO', desc: 'Automation', delay: '0.3s' }
+              { icon: Brain, label: t('heroTechAI'), desc: t('heroTechAIDesc'), delay: '0s' },
+              { icon: Cpu, label: t('heroTechQC'), desc: t('heroTechQCDesc'), delay: '0.1s' },
+              { icon: Zap, label: t('heroTechML'), desc: t('heroTechMLDesc'), delay: '0.2s' },
+              { icon: Sparkles, label: t('heroTechAUTO'), desc: t('heroTechAUTODesc'), delay: '0.3s' }
             ].map((tech, index) => (
               <div 
                 key={index}
@@ -200,7 +200,7 @@ const Hero = () => {
           <div className="w-5 h-8 md:w-6 md:h-10 border-2 border-blue-400/50 rounded-full flex justify-center mb-2 backdrop-blur-sm">
             <div className="w-1 h-2 md:h-3 bg-blue-400 rounded-full mt-1 md:mt-2 animate-pulse"></div>
           </div>
-          <span className="text-blue-300 text-xs">Scroll Down</span>
+          <span className="text-blue-300 text-xs">{t('heroScrollDown')}</span>
         </div>
       </div>
     </section>

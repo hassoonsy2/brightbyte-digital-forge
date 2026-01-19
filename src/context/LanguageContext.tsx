@@ -25,18 +25,49 @@ const translations = {
     getStarted: 'Get Started',
     learnMore: 'Learn More',
     heroButtonText: 'Let\'s Build Your Project Together!',
+    heroBadge: 'AI & Tech Specialists',
+    heroTechWords: 'AI Solutions,Quantum Computing,Automation,Innovation',
+    heroScrollDown: 'Scroll Down',
+    heroTechAI: 'AI',
+    heroTechAIDesc: 'Artificial Intelligence',
+    heroTechQC: 'QC',
+    heroTechQCDesc: 'Quantum Computing',
+    heroTechML: 'ML',
+    heroTechMLDesc: 'Machine Learning',
+    heroTechAUTO: 'AUTO',
+    heroTechAUTODesc: 'Automation',
+    
+    // Portfolio Categories
+    all: 'All',
+    ai: 'AI',
+    machineLearning: 'Machine Learning',
+    automation: 'Automation',
+    mobileApp: 'Mobile App',
+    quantumComputing: 'Quantum Computing',
+    softwareDevelopment: 'Software Development',
+    ecommerce: 'E-commerce',
+    seo: 'SEO',
+    socialMedia: 'Social Media',
+    design: 'Design',
+    
+    // Portfolio Status
+    live: 'Live',
+    comingSoon: 'Coming Soon',
+    inDevelopment: 'In Development',
+    featured: 'Featured',
+    
+    // Portfolio Actions
+    readMore: 'Read More',
+    viewLive: 'View Live',
+    viewCode: 'View Code',
+    noProjectsFound: 'No Projects Found',
+    noProjectsFoundDesc: 'No projects found for the selected category.',
+    viewAllProjects: 'View All Projects',
     
     // Portfolio
     portfolioTitle: 'Innovation in Action',
     portfolioDescription: 'Explore our cutting-edge projects that showcase the power of AI, quantum computing, and advanced automation technologies.',
     portfolioCTA: 'Let\'s collaborate to bring your innovative ideas to life with cutting-edge technology solutions.',
-    
-    // Portfolio Actions
-    readMore: 'Read More',
-    viewLive: 'View Live',
-    noProjectsFound: 'No Projects Found',
-    noProjectsFoundDesc: 'No projects found for the selected category.',
-    viewAllProjects: 'View All Projects',
     
     // Project Details
     projectChallenges: 'Challenges',
@@ -200,28 +231,6 @@ const translations = {
     servicesTitle: 'Our Services',
     servicesSubtitle: 'Comprehensive technology solutions for your business',
     
-    aiConsulting: 'AI Consulting',
-    aiConsultingDesc: 'Strategic AI implementation and consulting to transform your business processes.',
-    quantumComputing: 'Quantum Computing',
-    quantumComputingDesc: 'Next-generation quantum solutions for complex computational challenges.',
-    softwareDev: 'Software Development',
-    softwareDevDesc: 'Custom software solutions built with cutting-edge technologies.',
-    automation: 'Automation',
-    automationDesc: 'Streamline operations with intelligent automation systems.',
-    dataMarketing: 'Data-Driven Marketing',
-    dataMarketingDesc: 'Leverage data insights for targeted marketing campaigns.',
-    socialMedia: 'Social Media Management',
-    socialMediaDesc: 'Comprehensive social media strategy and management services.',
-    machineLearning: 'Machine Learning',
-    machineLearningDesc: 'Advanced ML solutions for predictive analytics and insights.',
-    mobileDev: 'Mobile Development',
-    mobileDevDesc: 'Native and cross-platform mobile applications.',
-    seo: 'SEO Optimization',
-    seoDesc: 'Search engine optimization to boost your online visibility.',
-    webDev: 'Website Development',
-    webDevDesc: 'Modern, responsive websites built for performance.',
-    designContent: 'Design & Content Creation',
-    designContentDesc: 'Creative design solutions and engaging content that captures your brand essence.',
 
     // Service Detail Page Content
     backToServices: 'Back to Services',
@@ -553,7 +562,7 @@ const translations = {
     designContentService6: 'UI/UX Design',
     designContentService7: 'Marketing Materials',
     designContentClosing: 'Bring your brand to life. Contact us for design and content services.',
-
+    
     // About
     aboutTitle: 'About Bright-Byte',
     aboutDescription: 'We are AI & Tech Specialists - hands-on builders with deep domain knowledge. Our cutting-edge technology company specializes in AI, quantum computing, and comprehensive digital solutions, delivering innovative solutions that drive business transformation.',
@@ -678,18 +687,49 @@ const translations = {
     getStarted: 'Aan de Slag',
     learnMore: 'Meer Informatie',
     heroButtonText: 'Laten We Samen Uw Project Bouwen!',
+    heroBadge: 'AI & Tech Specialisten',
+    heroTechWords: 'AI Oplossingen,Quantum Computing,Automatisering,Innovatie',
+    heroScrollDown: 'Scroll Omlaag',
+    heroTechAI: 'AI',
+    heroTechAIDesc: 'Kunstmatige Intelligentie',
+    heroTechQC: 'QC',
+    heroTechQCDesc: 'Quantum Computing',
+    heroTechML: 'ML',
+    heroTechMLDesc: 'Machine Learning',
+    heroTechAUTO: 'AUTO',
+    heroTechAUTODesc: 'Automatisering',
+    
+    // Portfolio Categories
+    all: 'Alle',
+    ai: 'AI',
+    machineLearning: 'Machine Learning',
+    automation: 'Automatisering',
+    mobileApp: 'Mobile App',
+    quantumComputing: 'Quantum Computing',
+    softwareDevelopment: 'Software Ontwikkeling',
+    ecommerce: 'E-commerce',
+    seo: 'SEO',
+    socialMedia: 'Social Media',
+    design: 'Design',
+    
+    // Portfolio Status
+    live: 'Live',
+    comingSoon: 'Binnenkort',
+    inDevelopment: 'In Ontwikkeling',
+    featured: 'Uitgelicht',
+    
+    // Portfolio Actions
+    readMore: 'Lees Meer',
+    viewLive: 'Bekijk Live',
+    viewCode: 'Bekijk Code',
+    noProjectsFound: 'Geen Projecten Gevonden',
+    noProjectsFoundDesc: 'Geen projecten gevonden voor de geselecteerde categorie.',
+    viewAllProjects: 'Bekijk Alle Projecten',
     
     // Portfolio
     portfolioTitle: 'Innovatie in Actie',
     portfolioDescription: 'Ontdek onze geavanceerde projecten die de kracht van AI, quantum computing en geavanceerde automatiserings technologieën tonen.',
     portfolioCTA: 'Laten we samenwerken om uw innovatieve ideeën tot leven te brengen met geavanceerde technologieoplossingen.',
-    
-    // Portfolio Actions
-    readMore: 'Lees Meer',
-    viewLive: 'Bekijk Live',
-    noProjectsFound: 'Geen Projecten Gevonden',
-    noProjectsFoundDesc: 'Geen projecten gevonden voor de geselecteerde categorie.',
-    viewAllProjects: 'Bekijk Alle Projecten',
     
     // Project Details
     projectChallenges: 'Uitdagingen',
@@ -853,28 +893,6 @@ const translations = {
     servicesTitle: 'Onze Diensten',
     servicesSubtitle: 'Uitgebreide technologieoplossingen voor uw bedrijf',
     
-    aiConsulting: 'AI Consulting',
-    aiConsultingDesc: 'Strategische AI-implementatie en consulting om uw bedrijfsprocessen te transformeren.',
-    quantumComputing: 'Quantum Computing',
-    quantumComputingDesc: 'Next-generatie quantum oplossingen voor complexe computationele uitdagingen.',
-    softwareDev: 'Software Ontwikkeling',
-    softwareDevDesc: 'Op maat gemaakte softwareoplossingen gebouwd met geavanceerde technologieën.',
-    automation: 'Automatisering',
-    automationDesc: 'Stroomlijn operaties met intelligente automatiseringssystemen.',
-    dataMarketing: 'Data-Gedreven Marketing',
-    dataMarketingDesc: 'Benut data-inzichten voor gerichte marketingcampagnes.',
-    socialMedia: 'Social Media Management',
-    socialMediaDesc: 'Uitgebreide social media strategie en managementdiensten.',
-    machineLearning: 'Machine Learning',
-    machineLearningDesc: 'Geavanceerde ML-oplossingen voor voorspellende analyses en inzichten.',
-    mobileDev: 'Mobiele Ontwikkeling',
-    mobileDevDesc: 'Native en cross-platform mobiele applicaties.',
-    seo: 'SEO Optimalisatie',
-    seoDesc: 'Zoekmachine optimalisatie om uw online zichtbaarheid te vergroten.',
-    webDev: 'Website Ontwikkeling',
-    webDevDesc: 'Moderne, responsieve websites gebouwd voor prestaties.',
-    designContent: 'Design & Content Creatie',
-    designContentDesc: 'Creatieve designoplossingen en boeiende content die de essentie van uw merk vastleggen.',
 
     // Service Detail Page Content
     backToServices: 'Terug naar Diensten',
@@ -1202,7 +1220,7 @@ const translations = {
     designContentService6: 'UI/UX Ontwerp',
     designContentService7: 'Marketing Materialen',
     designContentClosing: 'Breng uw merk tot leven. Neem contact met ons op voor design en content diensten.',
-
+    
     // About
     aboutTitle: 'Over Bright-Byte',
     aboutDescription: 'Wij zijn AI & Tech Specialisten - hands-on bouwers met diepe domeinkennis. Ons geavanceerde technologiebedrijf is gespecialiseerd in AI, quantum computing en uitgebreide digitale oplossingen, en levert innovatieve oplossingen die bedrijfstransformatie stimuleren.',
@@ -1334,8 +1352,8 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
 
   const handleLanguageChange = (newLang: Language) => {
     setIsLoading(true);
-    setLanguage(newLang);
-    localStorage.setItem('language', newLang);
+      setLanguage(newLang);
+      localStorage.setItem('language', newLang);
     
     // Refresh the page to ensure all content is properly translated
     setTimeout(() => {

@@ -11,7 +11,7 @@ import Footer from '../components/Footer';
 
 const Portfolio = () => {
   const { t } = useLanguage();
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState(t('all'));
 
   const getProjects = () => [
     {
@@ -125,17 +125,17 @@ const Portfolio = () => {
   const projects = getProjects();
 
   const categories = [
-    { key: "All", label: t('all') || 'All' },
-    { key: "AI", label: t('ai') || 'AI' },
-    { key: "Machine Learning", label: t('machineLearning') || 'Machine Learning' },
-    { key: "Automation", label: t('automation') || 'Automation' },
-    { key: "Mobile App", label: t('mobileApp') || 'Mobile App' },
-    { key: "Quantum Computing", label: t('quantumComputing') || 'Quantum Computing' },
-    { key: "Software Development", label: t('softwareDevelopment') || 'Software Development' },
-    { key: "E-commerce", label: t('ecommerce') || 'E-commerce' },
-    { key: "SEO", label: t('seo') || 'SEO' },
-    { key: "Social Media", label: t('socialMedia') || 'Social Media' },
-    { key: "Web Design", label: t('webDesign') || 'Web Design' }
+    { key: t('all'), label: t('all') },
+    { key: t('ai'), label: t('ai') },
+    { key: t('machineLearning'), label: t('machineLearning') },
+    { key: t('automation'), label: t('automation') },
+    { key: t('mobileApp'), label: t('mobileApp') },
+    { key: t('quantumComputing'), label: t('quantumComputing') },
+    { key: t('softwareDevelopment'), label: t('softwareDevelopment') },
+    { key: t('ecommerce'), label: t('ecommerce') },
+    { key: t('seo'), label: t('seo') },
+    { key: t('socialMedia'), label: t('socialMedia') },
+    { key: t('design'), label: t('design') }
   ];
 
   const getCategoryIcon = (category: string) => {
@@ -196,10 +196,10 @@ const Portfolio = () => {
   };
 
   // Filter projects based on selected category
-  const filteredProjects = selectedCategory === "All" 
+  const filteredProjects = selectedCategory === t('all') 
     ? projects 
     : projects.filter(project => project.technologies.some(tech => 
-        tech.toLowerCase().includes(selectedCategory.toLowerCase()) ||
+        tech.toLowerCase().includes(selectedCategory.toLowerCase()) || 
         selectedCategory.toLowerCase().includes(tech.toLowerCase())
       ));
 
@@ -274,7 +274,7 @@ const Portfolio = () => {
                   <div className="absolute top-4 left-4">
                     <Badge className="bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 border-blue-200 hover:from-blue-100 hover:to-indigo-100 transition-all duration-200 font-medium">
                       <Sparkles className="w-3 h-3 mr-1" />
-                      Featured
+                      {t('featured')}
                     </Badge>
                   </div>
                 )}
@@ -347,13 +347,13 @@ const Portfolio = () => {
           </div>
         ) : (
           <div className="text-center py-16">
-            <h3 className="text-2xl font-bold text-white mb-4">{t('noProjectsFound') || 'No Projects Found'}</h3>
-            <p className="text-gray-300 mb-8">{t('noProjectsFoundDesc') || 'No projects found for the selected category.'}</p>
+            <h3 className="text-2xl font-bold text-white mb-4">{t('noProjectsFound')}</h3>
+            <p className="text-gray-300 mb-8">{t('noProjectsFoundDesc')}</p>
             <Button 
-              onClick={() => setSelectedCategory("All")}
+              onClick={() => setSelectedCategory(t('all'))}
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
             >
-              {t('viewAllProjects') || 'View All Projects'}
+              {t('viewAllProjects')}
             </Button>
           </div>
         )}
