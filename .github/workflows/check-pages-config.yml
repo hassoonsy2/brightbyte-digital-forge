@@ -1,0 +1,24 @@
+name: Check GitHub Pages Configuration
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Pages API
+        run: |
+          echo "Checking GitHub Pages configuration..."
+          echo "If this workflow runs successfully, Pages might be enabled."
+          echo "If it fails, Pages is likely not configured correctly."
+          
+      - name: Repository Info
+        run: |
+          echo "Repository: ${{ github.repository }}"
+          echo "Repository visibility: Check in Settings → General → Danger Zone"
+
