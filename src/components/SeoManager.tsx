@@ -4,7 +4,10 @@ import { servicesData } from '../lib/servicesData';
 import { portfolioProjectBySlug } from '../lib/portfolioProjects';
 
 const BASE_URL = 'https://bright-byte.co';
-const DEFAULT_IMAGE = `${BASE_URL}/og-image.png`;
+const DEFAULT_IMAGE = `${BASE_URL}/Logo.png?v=20260207`;
+const DEFAULT_IMAGE_WIDTH = '500';
+const DEFAULT_IMAGE_HEIGHT = '500';
+const DEFAULT_IMAGE_ALT = 'Bright-Byte logo';
 
 type SeoConfig = {
   title: string;
@@ -276,7 +279,7 @@ const resolveSeo = (pathname: string): SeoConfig & { canonical: string } => {
             name: 'Bright-Byte',
             logo: {
               '@type': 'ImageObject',
-              url: `${BASE_URL}/favicon/android-chrome-512x512.png`,
+              url: `${BASE_URL}/Logo.png`,
             },
           },
         },
@@ -320,14 +323,20 @@ const SeoManager = () => {
     upsertMeta('property', 'og:title', seo.title);
     upsertMeta('property', 'og:description', seo.description);
     upsertMeta('property', 'og:image', DEFAULT_IMAGE);
+    upsertMeta('property', 'og:image:secure_url', DEFAULT_IMAGE);
+    upsertMeta('property', 'og:image:type', 'image/png');
+    upsertMeta('property', 'og:image:width', DEFAULT_IMAGE_WIDTH);
+    upsertMeta('property', 'og:image:height', DEFAULT_IMAGE_HEIGHT);
+    upsertMeta('property', 'og:image:alt', DEFAULT_IMAGE_ALT);
     upsertMeta('property', 'og:site_name', 'Bright-Byte');
     upsertMeta('property', 'og:locale', 'en_US');
 
-    upsertMeta('property', 'twitter:card', 'summary_large_image');
+    upsertMeta('property', 'twitter:card', 'summary');
     upsertMeta('property', 'twitter:url', seo.canonical);
     upsertMeta('property', 'twitter:title', seo.title);
     upsertMeta('property', 'twitter:description', seo.description);
     upsertMeta('property', 'twitter:image', DEFAULT_IMAGE);
+    upsertMeta('property', 'twitter:image:alt', DEFAULT_IMAGE_ALT);
 
     upsertCanonical(seo.canonical);
 
@@ -336,7 +345,7 @@ const SeoManager = () => {
         '@type': 'Organization',
         name: 'Bright-Byte',
         url: BASE_URL,
-        logo: `${BASE_URL}/favicon/android-chrome-512x512.png`,
+        logo: `${BASE_URL}/Logo.png`,
         sameAs: [
           'https://www.linkedin.com/company/bright-byte-company/',
           'https://www.instagram.com/bright.byte.nl',

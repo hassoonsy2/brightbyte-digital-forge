@@ -4,6 +4,7 @@ import { Toaster } from 'sonner';
 import { LanguageProvider } from './context/LanguageContext';
 import ScrollToTop from './components/ScrollToTop';
 import SeoManager from './components/SeoManager';
+import CookieConsent from './components/CookieConsent';
 import Index from './pages/Index';
 import Services from './pages/Services';
 import ServiceDetail from './pages/ServiceDetail';
@@ -43,6 +44,7 @@ function AppContent() {
     <>
       <SeoManager />
       <ScrollToTop />
+      <CookieConsent />
       <Toaster 
         position="top-center" 
         toastOptions={{
