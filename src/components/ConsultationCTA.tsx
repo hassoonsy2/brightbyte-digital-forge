@@ -1,145 +1,182 @@
 import React from 'react';
-import { Calendar, Clock, MessageCircle, ArrowRight, CheckCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { useLanguage } from '../context/LanguageContext';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { ArrowRight, Calendar, CheckCircle2, Clock, MessageCircle, Rocket, ShieldCheck } from 'lucide-react';
 
-const ConsultationCTA = () => {
-  const { t } = useLanguage();
+const benefits = [
+  'Comprehensive project and technical audit',
+  'Stack and architecture recommendations',
+  'Timeline, scope, and budget guidance',
+  'Clear next-step action plan',
+];
 
-  const scrollToContact = () => {
-    const element = document.getElementById('contact');
-    if (element) {
-      element.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  };
+const sessionAgenda = [
+  'Business goals and blockers',
+  'Technology and integration scope',
+  'Recommended build strategy',
+  'Timeline and investment estimate',
+];
 
-  const benefits = [
-    { icon: CheckCircle, text: t('consultationBenefit1') },
-    { icon: CheckCircle, text: t('consultationBenefit2') },
-    { icon: CheckCircle, text: t('consultationBenefit3') },
-    { icon: CheckCircle, text: t('consultationBenefit4') }
-  ];
+const quickStats = [
+  { value: '30m', label: 'Strategy Call' },
+  { value: '24h', label: 'Follow-up Plan' },
+  { value: '100%', label: 'No Obligation' },
+];
 
-  return (
-    <section className="py-20 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
-      </div>
+const ConsultationCTA = () => (
+  <section className="relative py-28 overflow-hidden">
+    <div className="absolute inset-0 bg-[#060912]" />
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(59,130,246,0.2),transparent_36%),radial-gradient(circle_at_85%_80%,rgba(14,165,233,0.16),transparent_32%)]" />
+    <div className="absolute inset-0 bg-grid-subtle opacity-30" />
+    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#3b82f6]/25 to-transparent" />
+    <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#3b82f6]/25 to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left side - Main CTA */}
-          <div className="text-white">
-            <div className="flex items-center space-x-2 mb-4">
-              <Calendar className="h-6 w-6 text-blue-200" />
-              <span className="text-blue-200 font-medium">{t('consultationAvailable')}</span>
+    <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="relative rounded-3xl border border-white/10 bg-[#050916]/75 backdrop-blur-xl overflow-hidden">
+        <div className="absolute -top-32 -left-24 w-72 h-72 rounded-full bg-[#3b82f6]/15 blur-[95px]" />
+        <div className="absolute -bottom-40 -right-24 w-96 h-96 rounded-full bg-cyan-500/10 blur-[120px]" />
+
+        <div className="relative z-10 grid lg:grid-cols-[1.15fr_0.85fr] gap-12 px-6 py-10 md:px-10 md:py-12 lg:px-12 lg:py-14">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#3b82f6]/30 bg-[#3b82f6]/10 text-[#93c5fd] text-xs font-medium mb-6">
+              <MessageCircle className="w-3.5 h-3.5" />
+              Free Consultation
             </div>
-            
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6 leading-tight">
-              {t('consultationTitle')}
+
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white leading-tight mb-5">
+              Let&apos;s discuss your
               <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white">
-                {t('consultationSubtitle')}
+              <span className="bg-gradient-to-r from-[#60a5fa] to-[#22d3ee] bg-clip-text text-transparent">
+                next project
               </span>
             </h2>
-            
-            <p className="text-xl text-blue-100 mb-8 leading-relaxed">
-              {t('consultationDescription')}
+
+            <p className="text-[#9ca3af] text-base sm:text-lg leading-relaxed max-w-2xl mb-7">
+              Book a focused strategy session with our team. You&apos;ll get practical direction, technical clarity,
+              and a clear execution path tailored to your goals.
             </p>
 
-            {/* Benefits list */}
-            <div className="space-y-3 mb-8">
-              {benefits.map((benefit, index) => (
-                <div key={index} className="flex items-center space-x-3">
-                  <benefit.icon className="h-5 w-5 text-green-400 flex-shrink-0" />
-                  <span className="text-blue-100">{benefit.text}</span>
-                </div>
+            <div className="grid sm:grid-cols-3 gap-3 mb-8">
+              {quickStats.map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.08 * index }}
+                  className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3"
+                >
+                  <div className="text-white text-xl font-semibold">{stat.value}</div>
+                  <div className="text-[#94a3b8] text-xs">{stat.label}</div>
+                </motion.div>
               ))}
             </div>
 
-            {/* CTA Button */}
-            <Button
-              onClick={scrollToContact}
-              className="bg-white text-blue-700 hover:bg-blue-50 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-            >
-              <MessageCircle className="mr-2 h-5 w-5" />
-              {t('consultationButton')}
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </div>
-
-          {/* Right side - Visual element */}
-          <div className="relative">
-            <Card className="bg-white/10 backdrop-blur-md border-white/20 shadow-2xl">
-              <CardContent className="p-8">
-                {/* Consultation preview */}
-                <div className="text-center mb-6">
-                  <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Clock className="h-8 w-8 text-white" />
+            <div className="grid sm:grid-cols-2 gap-3 mb-9">
+              {benefits.map((benefit, index) => (
+                <motion.div
+                  key={benefit}
+                  initial={{ opacity: 0, x: -14 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.06 * index }}
+                  className="flex items-start gap-3"
+                >
+                  <div className="w-6 h-6 rounded-full bg-[#3b82f6]/15 border border-[#3b82f6]/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#60a5fa]" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-2">{t('consultationDuration')}</h3>
-                  <p className="text-blue-200">{t('consultationType')}</p>
-                </div>
-
-                {/* What we'll cover */}
-                <div className="space-y-4">
-                  <h4 className="text-lg font-semibold text-white mb-3">{t('consultationCoverTitle')}</h4>
-                  <div className="space-y-3 text-blue-100">
-                    <div className="flex items-start space-x-3">
-                      <div className="w-2 h-2 bg-blue-300 rounded-full mt-2 flex-shrink-0"></div>
-                      <span>{t('consultationCover1')}</span>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <div className="w-2 h-2 bg-blue-300 rounded-full mt-2 flex-shrink-0"></div>
-                      <span>{t('consultationCover2')}</span>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <div className="w-2 h-2 bg-blue-300 rounded-full mt-2 flex-shrink-0"></div>
-                      <span>{t('consultationCover3')}</span>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <div className="w-2 h-2 bg-blue-300 rounded-full mt-2 flex-shrink-0"></div>
-                      <span>{t('consultationCover4')}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Contact info */}
-                <div className="mt-8 pt-6 border-t border-white/20">
-                  <div className="flex items-center justify-center space-x-4 text-blue-200">
-                    <div className="flex items-center space-x-2">
-                      <MessageCircle className="h-4 w-4" />
-                      <span className="text-sm">info@bright-byte.co</span>
-                    </div>
-                    <span className="text-white/40">|</span>
-                    <div className="flex items-center space-x-2">
-                      <Calendar className="h-4 w-4" />
-                      <span className="text-sm">+31657694468</span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Floating elements */}
-            <div className="absolute -top-4 -right-4 w-12 h-12 bg-white/20 rounded-full flex items-center justify-center animate-pulse">
-              <Calendar className="h-6 w-6 text-white" />
+                  <span className="text-sm text-[#cbd5e1] leading-relaxed">{benefit}</span>
+                </motion.div>
+              ))}
             </div>
-            <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-white/20 rounded-full flex items-center justify-center animate-pulse delay-1000">
-              <MessageCircle className="h-6 w-6 text-white" />
+
+            <div className="flex flex-wrap items-center gap-3">
+              <Link to="/contact">
+                <motion.button
+                  whileHover={{ scale: 1.02, y: -1 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-6 py-3 rounded-lg font-medium text-white inline-flex items-center gap-2 bg-[#3b82f6] hover:bg-[#60a5fa] transition-colors"
+                >
+                  Book Strategy Call
+                  <ArrowRight className="w-4 h-4" />
+                </motion.button>
+              </Link>
+              <Link to="/services">
+                <motion.button
+                  whileHover={{ y: -1 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-6 py-3 rounded-lg border border-white/15 text-[#e2e8f0] hover:border-[#3b82f6]/40 hover:bg-[#3b82f6]/10 transition-colors"
+                >
+                  Browse Services
+                </motion.button>
+              </Link>
             </div>
-          </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="relative"
+          >
+            <div className="rounded-2xl border border-white/10 bg-[#0b1221]/80 p-6 sm:p-7 h-full">
+              <div className="flex items-center justify-between gap-4 pb-5 border-b border-white/10">
+                <div>
+                  <p className="text-xs text-[#93c5fd] uppercase tracking-[0.14em]">Session Snapshot</p>
+                  <h3 className="text-white text-xl font-semibold mt-1">What You&apos;ll Get</h3>
+                </div>
+                <div className="w-11 h-11 rounded-xl bg-[#3b82f6]/15 border border-[#3b82f6]/35 flex items-center justify-center">
+                  <Rocket className="w-5 h-5 text-[#60a5fa]" />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 py-5">
+                <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                  <Clock className="w-4 h-4 text-[#60a5fa] mb-2" />
+                  <p className="text-white text-sm font-medium">30 Minutes</p>
+                  <p className="text-[#94a3b8] text-xs">Live strategy call</p>
+                </div>
+                <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                  <Calendar className="w-4 h-4 text-[#60a5fa] mb-2" />
+                  <p className="text-white text-sm font-medium">Video Meeting</p>
+                  <p className="text-[#94a3b8] text-xs">Flexible scheduling</p>
+                </div>
+              </div>
+
+              <div className="pt-1">
+                <p className="text-white font-medium mb-3">Agenda</p>
+                <div className="space-y-2.5">
+                  {sessionAgenda.map((item, index) => (
+                    <div key={item} className="flex gap-3">
+                      <div className="w-6 h-6 rounded-full border border-[#3b82f6]/35 bg-[#3b82f6]/10 text-[#93c5fd] text-xs flex items-center justify-center flex-shrink-0">
+                        {index + 1}
+                      </div>
+                      <p className="text-sm text-[#cbd5e1] leading-relaxed">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-6 pt-5 border-t border-white/10 rounded-lg bg-gradient-to-r from-[#3b82f6]/8 to-cyan-500/8 px-4 py-3">
+                <div className="flex items-start gap-3">
+                  <ShieldCheck className="w-4 h-4 text-[#60a5fa] mt-0.5 flex-shrink-0" />
+                  <p className="text-xs sm:text-sm text-[#cbd5e1] leading-relaxed">
+                    We focus on practical recommendations you can execute immediately after the call.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
-export default ConsultationCTA; 
+export default ConsultationCTA;

@@ -1,207 +1,473 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowRight, Play, Sparkles, Zap, Brain, Cpu } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useLanguage } from '../context/LanguageContext';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { FaMicrosoft } from 'react-icons/fa';
+import {
+  SiAmazonwebservices,
+  SiAdobe,
+  SiAnthropic,
+  SiExpo,
+  SiFigma,
+  SiGoogle,
+  SiLangchain,
+  SiNvidia,
+  SiOpenai,
+  SiSupabase,
+} from 'react-icons/si';
+
+const NODE_COUNT = 170;
+const BASE_SPHERE_RADIUS = 190;
+const MAX_CONNECTIONS_PER_NODE = 4;
+const ROTATION_SPEED = 0.00034; // radians per ms
+const WAVE_SPEED = 0.0024;
+const INTENSITY_DECAY = 0.0052;
+const BASE_PERSPECTIVE = 760;
+
+type BrandIcon = React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
+
+type PartnerBrand = {
+  name: string;
+  icon: BrandIcon;
+  iconColor: string;
+};
+
+const PARTNER_BRANDS: PartnerBrand[] = [
+  { name: 'Google', icon: SiGoogle, iconColor: '#4285F4' },
+  { name: 'Anthropic', icon: SiAnthropic, iconColor: '#D97757' },
+  { name: 'OpenAI', icon: SiOpenai, iconColor: '#F8FAFC' },
+  { name: 'Supabase', icon: SiSupabase, iconColor: '#3ECF8E' },
+  { name: 'Expo Go', icon: SiExpo, iconColor: '#F8FAFC' },
+  { name: 'LangChain', icon: SiLangchain, iconColor: '#8AB4FF' },
+  { name: 'Adobe', icon: SiAdobe, iconColor: '#FF0000' },
+  { name: 'Figma', icon: SiFigma, iconColor: '#A259FF' },
+  { name: 'Amazon AWS', icon: SiAmazonwebservices, iconColor: '#FF9900' },
+  { name: 'Microsoft Azure', icon: FaMicrosoft, iconColor: '#0078D4' },
+  { name: 'Nvidia', icon: SiNvidia, iconColor: '#76B900' },
+];
+
+type SpherePoint = {
+  x: number;
+  y: number;
+  z: number;
+  id: number;
+};
+
+type ProjectedPoint = {
+  x: number;
+  y: number;
+  z: number;
+  scale: number;
+  visibility: number;
+  intensity: number;
+};
+
+const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
+
+// Generate Fibonacci sphere points
+const generatePoints = (count: number, radius: number) => {
+  const points: SpherePoint[] = [];
+  const goldenRatio = (1 + Math.sqrt(5)) / 2;
+
+  for (let i = 0; i < count; i++) {
+    const theta = (2 * Math.PI * i) / goldenRatio;
+    const phi = Math.acos(1 - (2 * (i + 0.5)) / count);
+
+    const x = radius * Math.sin(phi) * Math.cos(theta);
+    const y = radius * Math.sin(phi) * Math.sin(theta);
+    const z = radius * Math.cos(phi);
+
+    points.push({ x, y, z, id: i });
+  }
+
+  return points;
+};
+
+const buildConnections = (
+  points: SpherePoint[],
+  maxDistance: number,
+  maxConnectionsPerNode: number,
+) => {
+  const pairs: { a: number; b: number; distSq: number }[] = [];
+  const maxDistanceSq = maxDistance * maxDistance;
+
+  for (let i = 0; i < points.length; i++) {
+    const a = points[i];
+    for (let j = i + 1; j < points.length; j++) {
+      const b = points[j];
+      const dx = a.x - b.x;
+      const dy = a.y - b.y;
+      const dz = a.z - b.z;
+      const distSq = dx * dx + dy * dy + dz * dz;
+      if (distSq <= maxDistanceSq) {
+        pairs.push({ a: i, b: j, distSq });
+      }
+    }
+  }
+
+  pairs.sort((first, second) => first.distSq - second.distSq);
+
+  const degree = new Uint8Array(points.length);
+  const connections: [number, number][] = [];
+
+  for (let i = 0; i < pairs.length; i++) {
+    const pair = pairs[i];
+    if (degree[pair.a] >= maxConnectionsPerNode || degree[pair.b] >= maxConnectionsPerNode) {
+      continue;
+    }
+    connections.push([pair.a, pair.b]);
+    degree[pair.a] += 1;
+    degree[pair.b] += 1;
+  }
+
+  return connections;
+};
 
 const Hero = () => {
-  const { t } = useLanguage();
-  const [isVisible, setIsVisible] = useState(false);
-  const [typedText, setTypedText] = useState('');
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [currentCharIndex, setCurrentCharIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  
-  const techWords = t('heroTechWords').split(',');
-  
-  useEffect(() => {
-    setIsVisible(true);
-    
-    // Check if device is mobile
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const basePoints = useMemo(() => generatePoints(NODE_COUNT, BASE_SPHERE_RADIUS), []);
+  const marqueeBrands = useMemo(() => [...PARTNER_BRANDS, ...PARTNER_BRANDS], []);
+  const connections = useMemo(
+    () => buildConnections(basePoints, BASE_SPHERE_RADIUS * 0.5, MAX_CONNECTIONS_PER_NODE),
+    [basePoints],
+  );
+  const drawOrder = useMemo(
+    () => Array.from({ length: basePoints.length }, (_, index) => index),
+    [basePoints.length],
+  );
+  const animationRef = useRef<number>();
+  const rotationRef = useRef(0);
+  const intensitiesRef = useRef(new Float32Array(NODE_COUNT).fill(0));
+  const wavePhaseRef = useRef(0);
+  const hoverTargetRef = useRef<{ x: number; y: number } | null>(null);
+  const hoverRef = useRef<{ x: number; y: number } | null>(null);
+  const lastFrameRef = useRef(0);
+
+  // Mouse handler
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    hoverTargetRef.current = {
+      x: e.clientX - rect.left - rect.width / 2,
+      y: e.clientY - rect.top - rect.height / 2,
     };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Typing animation effect with improved state management
+  const handleMouseLeave = useCallback(() => {
+    hoverTargetRef.current = null;
+    hoverRef.current = null;
+  }, []);
+
+  // Single animation loop on canvas for smoother rendering
   useEffect(() => {
-    const currentWord = techWords[currentWordIndex];
-    
-    if (isPaused) {
-      const pauseTimeout = setTimeout(() => {
-        setIsPaused(false);
-        setIsDeleting(true);
-      }, isMobile ? 1500 : 2000);
-      
-      return () => clearTimeout(pauseTimeout);
-    }
-    
-    const typeInterval = setInterval(() => {
-      if (!isDeleting) {
-        // Typing forward
-        if (currentCharIndex < currentWord.length) {
-          setTypedText(currentWord.substring(0, currentCharIndex + 1));
-          setCurrentCharIndex(prev => prev + 1);
+    const canvas = canvasRef.current;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
+
+    const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
+    if (!ctx) return;
+
+    const projected: ProjectedPoint[] = basePoints.map(() => ({
+      x: 0,
+      y: 0,
+      z: 0,
+      scale: 1,
+      visibility: 1,
+      intensity: 0,
+    }));
+
+    let width = 1;
+    let height = 1;
+    let centerX = 0;
+    let centerY = 0;
+    let sphereRadius = BASE_SPHERE_RADIUS;
+
+    const resizeCanvas = () => {
+      const rect = container.getBoundingClientRect();
+      width = Math.max(1, rect.width);
+      height = Math.max(1, rect.height);
+
+      const devicePixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.floor(width * devicePixelRatio);
+      canvas.height = Math.floor(height * devicePixelRatio);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+
+      centerX = width / 2;
+      centerY = height / 2;
+      const minRadius = width < 640 ? 145 : BASE_SPHERE_RADIUS;
+      sphereRadius = Math.max(minRadius, Math.min(width, height) * 0.42);
+    };
+
+    const animate = (timestamp: number) => {
+      if (document.hidden) {
+        lastFrameRef.current = timestamp;
+        animationRef.current = requestAnimationFrame(animate);
+        return;
+      }
+
+      const previousTime = lastFrameRef.current || timestamp;
+      const delta = clamp(timestamp - previousTime, 8, 34);
+      lastFrameRef.current = timestamp;
+
+      const targetHover = hoverTargetRef.current;
+      const smoothHover = hoverRef.current;
+
+      if (targetHover) {
+        if (!smoothHover) {
+          hoverRef.current = { ...targetHover };
         } else {
-          // Finished typing word, pause before deleting
-          setIsPaused(true);
+          const blend = 1 - Math.exp(-delta * 0.02);
+          smoothHover.x += (targetHover.x - smoothHover.x) * blend;
+          smoothHover.y += (targetHover.y - smoothHover.y) * blend;
         }
-      } else {
-        // Deleting backward
-        if (currentCharIndex > 0) {
-          setTypedText(currentWord.substring(0, currentCharIndex - 1));
-          setCurrentCharIndex(prev => prev - 1);
-        } else {
-          // Finished deleting, move to next word
-          setIsDeleting(false);
-          setCurrentWordIndex(prev => (prev + 1) % techWords.length);
+      } else if (smoothHover) {
+        const fade = Math.exp(-delta * 0.03);
+        smoothHover.x *= fade;
+        smoothHover.y *= fade;
+        if (Math.hypot(smoothHover.x, smoothHover.y) < 0.5) {
+          hoverRef.current = null;
         }
       }
-    }, isDeleting ? (isMobile ? 75 : 50) : (isMobile ? 150 : 100));
 
-    return () => clearInterval(typeInterval);
-  }, [currentWordIndex, currentCharIndex, isDeleting, isPaused, isMobile, techWords]);
+      rotationRef.current += delta * ROTATION_SPEED;
+      wavePhaseRef.current = (wavePhaseRef.current + delta * WAVE_SPEED) % (Math.PI * 2);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  };
+      const decay = Math.exp(-delta * INTENSITY_DECAY);
+      const scaleFactor = sphereRadius / BASE_SPHERE_RADIUS;
+      const perspective = BASE_PERSPECTIVE + sphereRadius;
+
+      const cosY = Math.cos(rotationRef.current);
+      const sinY = Math.sin(rotationRef.current);
+      const tiltX = 0.38;
+      const cosTiltX = Math.cos(tiltX);
+      const sinTiltX = Math.sin(tiltX);
+      const hover = hoverRef.current;
+
+      ctx.clearRect(0, 0, width, height);
+
+      for (let i = 0; i < basePoints.length; i++) {
+        const point = basePoints[i];
+        const px = point.x * scaleFactor;
+        const py = point.y * scaleFactor;
+        const pz = point.z * scaleFactor;
+
+        const rotatedX = px * cosY - pz * sinY;
+        const rotatedZ = px * sinY + pz * cosY;
+        const rotatedY = py * cosTiltX - rotatedZ * sinTiltX;
+        const depthZ = py * sinTiltX + rotatedZ * cosTiltX;
+
+        let intensity = intensitiesRef.current[i] * decay;
+
+        if (hover) {
+          const dx = rotatedX - hover.x;
+          const dy = rotatedY - hover.y;
+          const distance = Math.hypot(dx, dy);
+
+          if (distance < 95) {
+            const activation = 1 - distance / 95;
+            intensity = Math.max(intensity, activation * activation);
+          }
+
+          const waveRadius = 60 + (wavePhaseRef.current / (Math.PI * 2)) * 170;
+          const waveDistance = Math.abs(distance - waveRadius);
+          if (distance < 240 && waveDistance < 18) {
+            intensity = Math.max(intensity, (1 - waveDistance / 18) * 0.55);
+          }
+        }
+
+        intensity = clamp(intensity, 0, 1);
+        intensitiesRef.current[i] = intensity;
+
+        const depthScale = perspective / (perspective - depthZ);
+        const x = centerX + rotatedX * depthScale;
+        const y = centerY + rotatedY * depthScale;
+        const visibility = clamp((depthZ + sphereRadius) / (sphereRadius * 2), 0.12, 1);
+
+        const projectedPoint = projected[i];
+        projectedPoint.x = x;
+        projectedPoint.y = y;
+        projectedPoint.z = depthZ;
+        projectedPoint.scale = depthScale;
+        projectedPoint.visibility = visibility;
+        projectedPoint.intensity = intensity;
+      }
+
+      ctx.lineCap = 'round';
+      for (let i = 0; i < connections.length; i++) {
+        const [a, b] = connections[i];
+        const first = projected[a];
+        const second = projected[b];
+
+        const activity = Math.max(first.intensity, second.intensity);
+        const depth = (first.visibility + second.visibility) * 0.5;
+        const alpha = 0.04 + depth * 0.12 + activity * 0.24;
+
+        if (alpha < 0.05) continue;
+
+        ctx.beginPath();
+        ctx.moveTo(first.x, first.y);
+        ctx.lineTo(second.x, second.y);
+        ctx.strokeStyle = activity > 0.58
+          ? `rgba(207,243,255,${clamp(alpha, 0, 0.7)})`
+          : `rgba(74,177,255,${clamp(alpha, 0, 0.55)})`;
+        ctx.lineWidth = 0.5 + depth * 0.7 + activity * 0.6;
+        ctx.stroke();
+      }
+
+      drawOrder.sort((a, b) => projected[a].z - projected[b].z);
+
+      for (let i = 0; i < drawOrder.length; i++) {
+        const point = projected[drawOrder[i]];
+        const activity = point.intensity;
+        const radius = (2 + point.scale * 2.4) * (0.82 + point.visibility * 0.36);
+        const baseAlpha = 0.22 + point.visibility * 0.55;
+
+        if (activity > 0.15) {
+          const glowRadius = radius * (1.8 + activity * 1.2);
+          ctx.beginPath();
+          ctx.arc(point.x, point.y, glowRadius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(95,210,255,${0.06 + activity * 0.18})`;
+          ctx.fill();
+        }
+
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
+        if (activity > 0.7) {
+          ctx.fillStyle = `rgba(246,252,255,${Math.min(1, 0.75 + activity * 0.25)})`;
+        } else if (activity > 0.4) {
+          ctx.fillStyle = `rgba(141,223,255,${0.55 + activity * 0.4})`;
+        } else {
+          ctx.fillStyle = `rgba(86,188,255,${baseAlpha + activity * 0.3})`;
+        }
+        ctx.fill();
+
+        ctx.lineWidth = 0.8 + activity * 0.9;
+        ctx.strokeStyle = activity > 0.6
+          ? 'rgba(235,250,255,0.88)'
+          : `rgba(73,142,187,${0.42 + activity * 0.25})`;
+        ctx.stroke();
+      }
+
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    intensitiesRef.current.fill(0);
+    lastFrameRef.current = 0;
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    };
+  }, [basePoints, connections, drawOrder]);
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Animated gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
-        <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 via-transparent to-purple-900/20"></div>
+    <section className="relative min-h-[100svh] bg-[#030308] overflow-hidden flex items-start lg:items-center pt-24 sm:pt-28 lg:pt-0">
+      {/* Ambient glow */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/2 right-1/3 w-[600px] h-[600px] rounded-full bg-cyan-500/5 blur-[120px]" />
       </div>
 
-      {/* Animated background elements - reduced on mobile */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Large floating orbs - smaller on mobile */}
-        <div className="absolute top-1/4 left-1/4 w-48 h-48 md:w-96 md:h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-40 h-40 md:w-80 md:h-80 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        
-        {/* Floating particles - fewer on mobile */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(isMobile ? 8 : 20)].map((_, i) => (
-            <div
-              key={i}
-              className={`absolute w-1 h-1 md:w-2 md:h-2 bg-blue-400/30 rounded-full ${isMobile ? '' : 'animate-float'}`}
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDuration: `${8 + Math.random() * 12}s`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationTimingFunction: 'cubic-bezier(0.4, 0, 0.6, 1)',
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Pulsing orbs - fewer on mobile */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(isMobile ? 4 : 8)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-2 h-2 md:w-4 md:h-4 bg-purple-500/20 rounded-full animate-pulse"
-              style={{
-                left: `${20 + Math.random() * 60}%`,
-                top: `${20 + Math.random() * 60}%`,
-                animationDuration: `${3 + Math.random() * 4}s`,
-                animationDelay: `${Math.random() * 3}s`,
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 relative z-10">
-        <div className="text-center">
-          {/* Animated badge - better mobile visibility */}
-          <div className={`inline-flex items-center px-4 py-2 md:px-4 md:py-2 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-sm mb-6 md:mb-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            <Sparkles className="w-4 h-4 md:w-4 md:h-4 text-blue-400 mr-2 animate-pulse" />
-            <span className="text-blue-300 text-sm md:text-sm font-medium">{t('heroBadge')}</span>
-          </div>
-
-          {/* Main heading with better mobile sizing */}
-          <div className="mb-4 md:mb-6">
-            <h1 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-2 md:mb-4 leading-tight px-2 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              {t('heroTitle')}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-16">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
+          {/* Left Content */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center lg:text-left"
+          >
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white leading-[1.06] tracking-tight" style={{ letterSpacing: '-0.02em' }}>
+              Shaping Tomorrow
+              <br />
+              <span className="text-white">with Advanced</span>
+              <br />
+              <span className="text-[#3b82f6]">Technology</span>
             </h1>
-            
-            {/* Animated subtitle with typing effect - responsive sizing */}
-            <div className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-2 md:mb-4 leading-tight px-2 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <span className="text-blue-400 md:text-transparent md:bg-clip-text md:bg-gradient-to-r md:from-blue-400 md:via-purple-400 md:to-blue-400 md:bg-300% md:animate-gradient">
-                {typedText}
-              </span>
-              <span className="animate-blink text-blue-400">|</span>
+
+            <p className="mt-5 sm:mt-6 text-base sm:text-lg text-[#9ca3af] max-w-md mx-auto lg:mx-0 leading-relaxed">
+              Pioneering AI consulting, software development, and automation to empower your digital future.
+            </p>
+
+            <div className="mt-7 sm:mt-8 lg:mt-10 flex flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start">
+              <Link to="/contact">
+                <motion.button
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="btn-premium px-6 sm:px-8 py-3.5 sm:py-4"
+                >
+                  Get Started
+                </motion.button>
+              </Link>
+              <Link to="/services">
+                <motion.button
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="btn-secondary px-6 sm:px-8 py-3.5 sm:py-4"
+                >
+                  Our Services
+                </motion.button>
+              </Link>
             </div>
+          </motion.div>
+
+          {/* Right - 3D Orb */}
+          <div
+            ref={containerRef}
+            className="relative h-[380px] sm:h-[460px] md:h-[600px] flex items-center justify-center cursor-pointer"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{ perspective: '1000px' }}
+          >
+            <canvas
+              ref={canvasRef}
+              className="absolute inset-0 w-full h-full pointer-events-none"
+            />
+          </div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="relative mt-8 md:mt-10"
+        >
+          <div className="text-center mb-4">
+            <span className="text-[11px] uppercase tracking-[0.2em] text-[#60a5fa] font-medium">
+              Partners
+            </span>
           </div>
 
-          {/* Description with better mobile sizing */}
-          <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-200 mb-8 md:mb-12 max-w-4xl mx-auto leading-relaxed px-4 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            {t('heroDescription')}
-          </p>
-
-          {/* CTA button - mobile optimized */}
-          <div className={`flex justify-center items-center mb-12 md:mb-16 px-4 transition-all duration-1000 delay-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <Button 
-              onClick={() => scrollToSection('contact')}
-              className="group bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 hover:from-blue-700 hover:via-purple-700 hover:to-blue-700 text-white px-6 py-3 md:px-12 md:py-6 text-base md:text-xl font-bold rounded-full shadow-2xl hover:shadow-blue-500/30 transition-all duration-500 transform hover:scale-105 md:hover:scale-110 hover:-translate-y-1 md:hover:-translate-y-2 relative overflow-hidden border-2 border-blue-400/20 hover:border-blue-300/40 w-full max-w-sm md:w-auto"
+          <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+            <motion.div
+              className="flex w-max gap-3 md:gap-4"
+              animate={{ x: ['0%', '-50%'] }}
+              transition={{ duration: 26, ease: 'linear', repeat: Infinity }}
             >
-              <span className="relative z-10 flex items-center justify-center">
-                <Sparkles className="mr-2 md:mr-3 h-5 w-5 md:h-6 md:w-6 group-hover:rotate-12 group-hover:scale-125 transition-all duration-300" />
-                <span className="text-base md:text-xl">{t('heroButtonText')}</span>
-                <ArrowRight className="ml-2 md:ml-3 h-5 w-5 md:h-6 md:w-6 group-hover:translate-x-1 md:group-hover:translate-x-2 group-hover:scale-110 transition-all duration-300" />
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-blue-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </Button>
+              {marqueeBrands.map((partner, index) => {
+                const Icon = partner.icon;
+                return (
+                  <div
+                    key={`${partner.name}-${index}`}
+                    className="min-w-[160px] md:min-w-[190px] h-14 md:h-16 px-2 md:px-3 flex items-center gap-2.5 md:gap-3"
+                  >
+                    <Icon
+                      className="w-5 h-5 md:w-6 md:h-6 shrink-0 drop-shadow-[0_0_10px_rgba(59,130,246,0.25)]"
+                      style={{ color: partner.iconColor }}
+                    />
+                    <span className="text-[#d7e6ff] text-sm md:text-base font-medium tracking-tight leading-tight whitespace-nowrap">
+                      {partner.name}
+                    </span>
+                  </div>
+                );
+              })}
+            </motion.div>
           </div>
-
-          {/* Tech indicators - mobile optimized grid */}
-          <div className={`grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-8 max-w-3xl mx-auto px-4 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            {[
-              { icon: Brain, label: t('heroTechAI'), desc: t('heroTechAIDesc'), delay: '0s' },
-              { icon: Cpu, label: t('heroTechQC'), desc: t('heroTechQCDesc'), delay: '0.1s' },
-              { icon: Zap, label: t('heroTechML'), desc: t('heroTechMLDesc'), delay: '0.2s' },
-              { icon: Sparkles, label: t('heroTechAUTO'), desc: t('heroTechAUTODesc'), delay: '0.3s' }
-            ].map((tech, index) => (
-              <div 
-                key={index}
-                className="group text-center p-2 md:p-4 rounded-lg md:rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-blue-400/50 transition-all duration-300 hover:scale-105 hover:-translate-y-1 md:hover:-translate-y-2"
-                style={{ animationDelay: tech.delay }}
-              >
-                <tech.icon className="w-7 h-7 md:w-8 md:h-8 text-blue-400 mx-auto mb-1 md:mb-2 group-hover:scale-110 group-hover:text-blue-300 transition-all duration-300" />
-                <div className="text-xl md:text-2xl font-bold text-white group-hover:text-blue-300 transition-colors duration-300">{tech.label}</div>
-                <div className="text-sm md:text-sm text-gray-300 group-hover:text-gray-200 transition-colors duration-300 hidden sm:block">{tech.desc}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Enhanced scroll indicator - hidden on very small screens */}
-      <div className={`absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 transition-all duration-1000 delay-1200 hidden sm:block ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-        <div className="flex flex-col items-center animate-bounce">
-          <div className="w-5 h-8 md:w-6 md:h-10 border-2 border-blue-400/50 rounded-full flex justify-center mb-2 backdrop-blur-sm">
-            <div className="w-1 h-2 md:h-3 bg-blue-400 rounded-full mt-1 md:mt-2 animate-pulse"></div>
-          </div>
-          <span className="text-blue-300 text-xs">{t('heroScrollDown')}</span>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

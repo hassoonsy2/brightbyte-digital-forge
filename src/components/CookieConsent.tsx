@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { X, Cookie } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X } from 'lucide-react';
 import { initGA } from '../utils/analytics';
 
 const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const { t } = useLanguage();
 
   useEffect(() => {
-    // Check if user has already accepted cookies
     const cookieConsent = localStorage.getItem('cookieConsent');
     if (!cookieConsent) {
       setIsVisible(true);
@@ -18,7 +15,7 @@ const CookieConsent = () => {
 
   const handleAccept = () => {
     localStorage.setItem('cookieConsent', 'accepted');
-    initGA(); // Initialize Google Analytics when cookies are accepted
+    initGA();
     setIsVisible(false);
   };
 
@@ -27,42 +24,47 @@ const CookieConsent = () => {
     setIsVisible(false);
   };
 
-  if (!isVisible) return null;
-
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="flex items-start gap-3 flex-1">
-            <Cookie className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
-            <div className="flex-1">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                {t('cookieConsentTitle') || 'We use cookies'}
-              </h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                {t('cookieConsentDescription') || 'We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies.'}
-              </p>
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          className="fixed bottom-6 right-6 z-50 max-w-sm"
+        >
+          <div className="bg-[#0a0a12] border border-white/[0.06] rounded-xl p-6 shadow-2xl shadow-black/50">
+            <div className="flex items-start justify-between mb-4">
+              <h4 className="text-white font-medium">Cookie Preferences</h4>
+              <button
+                onClick={handleDecline}
+                className="text-[#6b7280] hover:text-white transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <p className="text-[#9ca3af] text-sm mb-6 leading-relaxed">
+              We use cookies to enhance your browsing experience and analyze our traffic. 
+              By clicking Accept, you consent to our use of cookies.
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={handleDecline}
+                className="flex-1 px-4 py-2 text-sm text-[#9ca3af] hover:text-white transition-colors"
+              >
+                Decline
+              </button>
+              <button
+                onClick={handleAccept}
+                className="flex-1 px-4 py-2 bg-[#3b82f6] text-white text-sm font-medium rounded-lg hover:bg-[#60a5fa] transition-colors"
+              >
+                Accept
+              </button>
             </div>
           </div>
-          
-          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-            <Button
-              onClick={handleDecline}
-              variant="outline"
-              className="w-full sm:w-auto border-gray-300 text-gray-700 hover:bg-gray-50"
-            >
-              {t('cookieDecline') || 'Decline'}
-            </Button>
-            <Button
-              onClick={handleAccept}
-              className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-            >
-              {t('cookieAccept') || 'Accept All'}
-            </Button>
-          </div>
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
