@@ -33,9 +33,17 @@ const ProjectDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const [currentScreenshot, setCurrentScreenshot] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const screenshotTransition = {
+    duration: 0.55,
+    ease: [0.22, 1, 0.36, 1] as const,
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, [slug]);
+
+  useEffect(() => {
+    setCurrentScreenshot(0);
   }, [slug]);
 
   // Auto-play screenshots
@@ -51,6 +59,17 @@ const ProjectDetail = () => {
     }, 4000);
     return () => clearInterval(interval);
   }, [isAutoPlaying, slug]);
+
+  useEffect(() => {
+    const project = getProjects()[slug as keyof ReturnType<typeof getProjects>];
+    if (!project?.screenshots?.length) return;
+
+    project.screenshots.forEach((screenshot) => {
+      const image = new Image();
+      image.decoding = 'async';
+      image.src = screenshot.src;
+    });
+  }, [slug]);
 
   const getProjects = () => ({
     'lemon-boost': {
@@ -692,18 +711,23 @@ const ProjectDetail = () => {
                     />
                     
                     <PhoneMockup className="relative z-10 w-72 sm:w-80">
-                      <AnimatePresence mode="wait">
-                        <motion.img
-                          key={currentScreenshot}
-                          src={project.screenshots?.[currentScreenshot]?.src}
-                          alt={project.screenshots?.[currentScreenshot]?.caption}
-                          initial={{ opacity: 0, x: 50 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: -50 }}
-                          transition={{ duration: 0.3 }}
-                          className="w-full aspect-[9/19] object-contain"
-                        />
-                      </AnimatePresence>
+                      <div className="relative aspect-[9/19]">
+                        <AnimatePresence mode="sync" initial={false}>
+                          <motion.img
+                            key={currentScreenshot}
+                            src={project.screenshots?.[currentScreenshot]?.src}
+                            alt={project.screenshots?.[currentScreenshot]?.caption}
+                            initial={{ opacity: 0, scale: 1.015, filter: 'blur(8px)' }}
+                            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                            exit={{ opacity: 0, scale: 0.985, filter: 'blur(6px)' }}
+                            transition={screenshotTransition}
+                            className="absolute inset-0 w-full h-full object-contain"
+                            loading="eager"
+                            decoding="async"
+                            draggable={false}
+                          />
+                        </AnimatePresence>
+                      </div>
                       
                       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
                         {project.screenshots?.map((_, idx) => (
@@ -845,17 +869,20 @@ const ProjectDetail = () => {
                       </div>
                       
                       {/* Screenshot */}
-                      <div className="relative">
-                        <AnimatePresence mode="wait">
+                      <div className="relative aspect-[16/10] bg-gray-950">
+                        <AnimatePresence mode="sync" initial={false}>
                           <motion.img
                             key={currentScreenshot}
                             src={project.screenshots?.[currentScreenshot]?.src}
                             alt={project.screenshots?.[currentScreenshot]?.caption}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                            className="w-full aspect-[16/10] object-contain bg-gray-950"
+                            initial={{ opacity: 0, scale: 1.012, filter: 'blur(6px)' }}
+                            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                            exit={{ opacity: 0, scale: 0.988, filter: 'blur(4px)' }}
+                            transition={screenshotTransition}
+                            className="absolute inset-0 w-full h-full object-contain bg-gray-950"
+                            loading="eager"
+                            decoding="async"
+                            draggable={false}
                           />
                         </AnimatePresence>
                         
@@ -1001,17 +1028,20 @@ const ProjectDetail = () => {
                       </div>
                       
                       {/* Screenshot */}
-                      <div className="relative">
-                        <AnimatePresence mode="wait">
+                      <div className="relative aspect-[16/10] bg-gray-950">
+                        <AnimatePresence mode="sync" initial={false}>
                           <motion.img
                             key={currentScreenshot}
                             src={project.screenshots?.[currentScreenshot]?.src}
                             alt={project.screenshots?.[currentScreenshot]?.caption}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                            className="w-full object-contain"
+                            initial={{ opacity: 0, scale: 1.012, filter: 'blur(6px)' }}
+                            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                            exit={{ opacity: 0, scale: 0.988, filter: 'blur(4px)' }}
+                            transition={screenshotTransition}
+                            className="absolute inset-0 w-full h-full object-contain"
+                            loading="eager"
+                            decoding="async"
+                            draggable={false}
                           />
                         </AnimatePresence>
                       </div>
@@ -1141,17 +1171,20 @@ const ProjectDetail = () => {
                       </div>
                       
                       {/* Screenshot */}
-                      <div className="relative">
-                        <AnimatePresence mode="wait">
+                      <div className="relative aspect-[16/10] bg-gray-950">
+                        <AnimatePresence mode="sync" initial={false}>
                           <motion.img
                             key={currentScreenshot}
                             src={project.screenshots?.[currentScreenshot]?.src}
                             alt={project.screenshots?.[currentScreenshot]?.caption}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                            className="w-full object-contain"
+                            initial={{ opacity: 0, scale: 1.012, filter: 'blur(6px)' }}
+                            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                            exit={{ opacity: 0, scale: 0.988, filter: 'blur(4px)' }}
+                            transition={screenshotTransition}
+                            className="absolute inset-0 w-full h-full object-contain"
+                            loading="eager"
+                            decoding="async"
+                            draggable={false}
                           />
                         </AnimatePresence>
                       </div>
@@ -1281,17 +1314,20 @@ const ProjectDetail = () => {
                       </div>
                       
                       {/* Screenshot */}
-                      <div className="relative">
-                        <AnimatePresence mode="wait">
+                      <div className="relative aspect-[16/10] bg-gray-950">
+                        <AnimatePresence mode="sync" initial={false}>
                           <motion.img
                             key={currentScreenshot}
                             src={project.screenshots?.[currentScreenshot]?.src}
                             alt={project.screenshots?.[currentScreenshot]?.caption}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                            className="w-full object-contain"
+                            initial={{ opacity: 0, scale: 1.012, filter: 'blur(6px)' }}
+                            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                            exit={{ opacity: 0, scale: 0.988, filter: 'blur(4px)' }}
+                            transition={screenshotTransition}
+                            className="absolute inset-0 w-full h-full object-contain"
+                            loading="eager"
+                            decoding="async"
+                            draggable={false}
                           />
                         </AnimatePresence>
                       </div>
@@ -1421,17 +1457,20 @@ const ProjectDetail = () => {
                       </div>
                       
                       {/* Screenshot */}
-                      <div className="relative">
-                        <AnimatePresence mode="wait">
+                      <div className="relative aspect-[16/10] bg-gray-950">
+                        <AnimatePresence mode="sync" initial={false}>
                           <motion.img
                             key={currentScreenshot}
                             src={project.screenshots?.[currentScreenshot]?.src}
                             alt={project.screenshots?.[currentScreenshot]?.caption}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                            className="w-full object-contain"
+                            initial={{ opacity: 0, scale: 1.012, filter: 'blur(6px)' }}
+                            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                            exit={{ opacity: 0, scale: 0.988, filter: 'blur(4px)' }}
+                            transition={screenshotTransition}
+                            className="absolute inset-0 w-full h-full object-contain"
+                            loading="eager"
+                            decoding="async"
+                            draggable={false}
                           />
                         </AnimatePresence>
                       </div>
@@ -1723,7 +1762,7 @@ const ProjectDetail = () => {
                     <motion.div 
                       className="flex gap-4"
                       animate={{ x: -currentScreenshot * (isFesti ? 280 : 700) }}
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      transition={{ type: 'tween', ease: [0.22, 1, 0.36, 1], duration: 0.55 }}
                     >
                       {project.screenshots.map((screenshot, index) => (
                         <motion.div

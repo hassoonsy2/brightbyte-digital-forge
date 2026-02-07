@@ -15,13 +15,14 @@ import {
   SiSupabase,
 } from 'react-icons/si';
 
-const NODE_COUNT = 170;
+const NODE_COUNT = 138;
 const BASE_SPHERE_RADIUS = 190;
-const MAX_CONNECTIONS_PER_NODE = 4;
+const MAX_CONNECTIONS_PER_NODE = 3;
 const ROTATION_SPEED = 0.00034; // radians per ms
 const WAVE_SPEED = 0.0024;
 const INTENSITY_DECAY = 0.0052;
 const BASE_PERSPECTIVE = 760;
+const TARGET_FRAME_INTERVAL = 1000 / 50;
 
 type BrandIcon = React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
 
@@ -208,7 +209,13 @@ const Hero = () => {
       }
 
       const previousTime = lastFrameRef.current || timestamp;
-      const delta = clamp(timestamp - previousTime, 8, 34);
+      const elapsed = timestamp - previousTime;
+      if (elapsed < TARGET_FRAME_INTERVAL) {
+        animationRef.current = requestAnimationFrame(animate);
+        return;
+      }
+
+      const delta = clamp(elapsed, TARGET_FRAME_INTERVAL, 34);
       lastFrameRef.current = timestamp;
 
       const targetHover = hoverTargetRef.current;

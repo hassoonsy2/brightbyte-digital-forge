@@ -40,6 +40,8 @@ const Footer = () => {
                 alt="Bright-Byte logo"
                 width={387}
                 height={105}
+                loading="lazy"
+                decoding="async"
                 className="h-16 w-auto object-contain"
               />
             </Link>

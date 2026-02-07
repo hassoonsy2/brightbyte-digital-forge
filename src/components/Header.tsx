@@ -48,6 +48,8 @@ const Header = () => {
                 alt="Bright-Byte logo"
                 width={387}
                 height={105}
+                decoding="async"
+                fetchPriority="high"
                 className="h-10 sm:h-12 w-auto object-contain"
               />
             </Link>
