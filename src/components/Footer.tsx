@@ -118,6 +118,8 @@ const Footer = () => {
                 +31657694468
               </a>
               <p className="text-[#6b7280]">Utrecht, Netherlands</p>
+              <p className="text-[#6b7280]">KVK: 66739179</p>
+              <p className="text-[#6b7280]">BTW: NL001453936B46</p>
             </div>
           </div>
         </div>
