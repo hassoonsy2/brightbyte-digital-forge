@@ -208,7 +208,8 @@ const Hero = () => {
         return;
       }
 
-      const previousTime = lastFrameRef.current || timestamp;
+      const previousTime =
+        lastFrameRef.current === 0 ? timestamp - TARGET_FRAME_INTERVAL : lastFrameRef.current;
       const elapsed = timestamp - previousTime;
       if (elapsed < TARGET_FRAME_INTERVAL) {
         animationRef.current = requestAnimationFrame(animate);

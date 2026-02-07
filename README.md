@@ -1,73 +1,80 @@
-# Welcome to your Lovable project
+# Bright-Byte Website
 
-## Project info
+Official website for Bright-Byte, built with Vite + React + TypeScript.
 
-**URL**: https://lovable.dev/projects/65d932a5-6f54-44bf-9843-8fb00dbcb0c8
+Live domain: `https://bright-byte.co`
 
-## How can I edit this code?
+## Stack
 
-There are several ways of editing your application.
+- Vite
+- React 18
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- React Router
+- EmailJS (contact form)
 
-**Use Lovable**
+## Getting Started
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/65d932a5-6f54-44bf-9843-8fb00dbcb0c8) and start prompting.
+Requirements:
 
-Changes made via Lovable will be committed automatically to this repo.
+- Node.js 18+ (Node 18 is used in CI)
+- npm
 
-**Use your preferred IDE**
+Install and run:
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The app starts on `http://localhost:8080`.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Scripts
 
-**Use GitHub Codespaces**
+- `npm run dev`: Start local development server
+- `npm run build`: Production build to `dist/`
+- `npm run build:dev`: Development-mode build
+- `npm run preview`: Preview production build locally
+- `npm run lint`: Run ESLint
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Environment Variables
 
-## What technologies are used for this project?
+Set these for EmailJS contact form support:
 
-This project is built with:
+```bash
+VITE_EMAILJS_SERVICE_ID=
+VITE_EMAILJS_TEMPLATE_ID=
+VITE_EMAILJS_AUTO_REPLY_TEMPLATE_ID=
+VITE_EMAILJS_PUBLIC_KEY=
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+You can define them in `.env.local` for local development.
 
-## How can I deploy this project?
+## Deployment
 
-Simply open [Lovable](https://lovable.dev/projects/65d932a5-6f54-44bf-9843-8fb00dbcb0c8) and click on Share -> Publish.
+This repo is configured for GitHub Pages via:
 
-## Can I connect a custom domain to my Lovable project?
+- `.github/workflows/deploy.yml`
 
-Yes, you can!
+Deployment triggers on push to `main` or `master`.  
+The workflow builds the app and publishes `dist/` with custom domain `bright-byte.co`.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Project Structure
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+```text
+src/
+  components/      Reusable UI sections and shared components
+  pages/           Route-level pages
+  lib/             Content/data models (services, portfolio, etc.)
+  context/         Global context providers
+  hooks/           Custom React hooks
+  utils/           Utilities (analytics, helpers)
+  config/          Config modules (EmailJS, etc.)
+```
+
+## Notes
+
+- SEO tags are managed via `index.html` and `src/components/SeoManager.tsx`.
+- Cookie consent gates analytics initialization.
+- Static assets are served from `public/`.
