@@ -188,7 +188,7 @@ const resolveSeo = (pathname: string): SeoConfig & { canonical: string } => {
     return {
       title: `${serviceName} Services | Bright-Byte`,
       description,
-      keywords: `${serviceName.toLowerCase()}, Bright-Byte ${serviceName.toLowerCase()}, technology consulting, digital services`,
+      keywords: `${serviceName.toLowerCase()}, Bright-Byte ${serviceName.toLowerCase()}, ${service.focus?.toLowerCase() || 'technology consulting'}, digital services, ${service.outcome?.toLowerCase() || 'business growth'}`,
       ogType: 'website',
       canonical,
       schema: {
@@ -196,10 +196,32 @@ const resolveSeo = (pathname: string): SeoConfig & { canonical: string } => {
         name: serviceName,
         description,
         serviceType: serviceName,
+        areaServed: 'Europe',
         provider: {
           '@type': 'Organization',
           name: 'Bright-Byte',
           url: BASE_URL,
+        },
+        hasOfferCatalog: {
+          '@type': 'OfferCatalog',
+          name: `${serviceName} delivery model`,
+          itemListElement: [
+            {
+              '@type': 'Offer',
+              name: 'Business focus',
+              description: service.focus,
+            },
+            {
+              '@type': 'Offer',
+              name: 'Typical delivery time',
+              description: service.deliveryTime,
+            },
+            {
+              '@type': 'Offer',
+              name: 'Target outcome',
+              description: service.outcome,
+            },
+          ],
         },
         url: canonical,
       },
@@ -363,6 +385,36 @@ const SeoManager = () => {
 
     if (seo.schema) {
       baseGraph.push(seo.schema);
+    }
+
+    if (location.pathname.startsWith('/services/')) {
+      const serviceId = location.pathname.split('/')[2] || '';
+      const service = servicesData.find((item) => item.id === serviceId);
+      if (service) {
+        baseGraph.push({
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Home',
+              item: `${BASE_URL}/`,
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: 'Services',
+              item: `${BASE_URL}/services`,
+            },
+            {
+              '@type': 'ListItem',
+              position: 3,
+              name: service.title,
+              item: `${BASE_URL}/services/${service.id}`,
+            },
+          ],
+        });
+      }
     }
 
     upsertJsonLd('dynamic-seo-schema', {

@@ -920,6 +920,21 @@ const ServiceDetail = () => {
                 Full technical and execution details are listed below.
               </p>
 
+              <div className="grid sm:grid-cols-3 gap-3 mb-10">
+                <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+                  <p className="text-[11px] text-gray-400">Business Focus</p>
+                  <p className="text-sm text-white font-medium">{service.focus}</p>
+                </div>
+                <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+                  <p className="text-[11px] text-gray-400">Typical Delivery Window</p>
+                  <p className="text-sm text-white font-medium">{service.deliveryTime}</p>
+                </div>
+                <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+                  <p className="text-[11px] text-gray-400">Expected Outcome</p>
+                  <p className="text-sm text-white font-medium">{service.outcome}</p>
+                </div>
+              </div>
+
               <div className="flex flex-wrap gap-8 mb-10">
                 {content.heroStats.map((stat: any, i: number) => (
                   <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 + i * 0.1 }}>
@@ -948,6 +963,9 @@ const ServiceDetail = () => {
                 <img
                   src={service.image}
                   alt={`${service.title} visual`}
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="high"
                   className="absolute inset-0 w-full h-full object-cover opacity-25"
                 />
                 <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient}`} />
