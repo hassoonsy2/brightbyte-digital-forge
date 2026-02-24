@@ -682,6 +682,69 @@ const serviceContent: Record<string, any> = {
   },
 };
 
+const serviceMediaContent: Record<string, { image: string; caption: string; detail: string; proofPoints: string[] }> = {
+  'ai-consulting': {
+    image: '/AI.png',
+    caption: 'AI program architecture and decision intelligence workflows',
+    detail: 'We design AI roadmaps with governance and production-readiness from day one, so leadership can scale confidently.',
+    proofPoints: ['LLM + RAG adoption path', 'Governance and model risk controls', 'Operational KPI instrumentation'],
+  },
+  'software-development': {
+    image: '/software.png',
+    caption: 'Platform architecture and enterprise software delivery',
+    detail: 'From MVP to enterprise rollout, our software delivery model focuses on reliability, velocity, and maintainability.',
+    proofPoints: ['Architecture-first design', 'CI/CD and observability', 'Secure API integrations'],
+  },
+  automation: {
+    image: '/automation.png',
+    caption: 'Workflow orchestration using n8n, Make, APIs, and AI layers',
+    detail: 'Automation is built with exception handling and human-in-the-loop checkpoints to keep operations safe and stable.',
+    proofPoints: ['Process cycle-time reduction', 'Error-rate control and alerts', 'Cross-system orchestration'],
+  },
+  'machine-learning': {
+    image: '/Machine_learning.png',
+    caption: 'Model development lifecycle and MLOps governance',
+    detail: 'We convert data science experimentation into production ML systems that stay accurate over time.',
+    proofPoints: ['Feature engineering standards', 'Model explainability', 'Drift monitoring and retraining'],
+  },
+  'web-development': {
+    image: '/software.png',
+    caption: 'High-performance web platform engineering',
+    detail: 'Each web build is optimized for Core Web Vitals, conversion, and long-term SEO growth.',
+    proofPoints: ['LCP/CLS optimization', 'Conversion-centered UX', 'Scalable frontend architecture'],
+  },
+  'mobile-development': {
+    image: '/mobiel.png',
+    caption: 'Cross-platform mobile product delivery',
+    detail: 'We ship mobile apps with strong onboarding, reliable performance, and release operations built for growth.',
+    proofPoints: ['Retention-focused UX', 'Crash prevention and QA', 'Store release readiness'],
+  },
+  'data-marketing': {
+    image: '/marketing.png',
+    caption: 'Data-driven campaign planning and ROI measurement',
+    detail: 'Campaign decisions are tied to attribution and business outcomes, not vanity metrics.',
+    proofPoints: ['Funnel instrumentation', 'Channel-level ROAS tracking', 'Performance experimentation loops'],
+  },
+  seo: {
+    image: '/SEO.png',
+    caption: 'Technical SEO and authority growth systems',
+    detail: 'We combine technical remediation with content architecture to build sustainable organic visibility.',
+    proofPoints: ['Technical audit and fixes', 'Search-intent mapping', 'Structured data and internal links'],
+  },
+  'social-media': {
+    image: '/Social_Media.png',
+    caption: 'Social demand generation and content systems',
+    detail: 'We build repeatable social engines that connect brand attention to real pipeline outcomes.',
+    proofPoints: ['Platform-native creative strategy', 'Community performance loops', 'Demand-focused reporting'],
+  },
+  'design-content': {
+    image: '/design.png',
+    caption: 'Brand systems, visual direction, and conversion content',
+    detail: 'Creative execution is aligned to positioning, trust, and performance across product and marketing.',
+    proofPoints: ['Brand consistency framework', 'Scalable design systems', 'Conversion-aware storytelling'],
+  },
+};
+
 const defaultContent = {
   headline: 'Enterprise Solutions',
   subheadline: 'Custom solutions designed to transform your business with cutting-edge technology.',
@@ -863,8 +926,9 @@ const serviceStrategyContent: Record<string, { problems: string[]; solutionBluep
 };
 
 // ─── Component ──────────────────────────────────────────────────────
-const ServiceDetail = () => {
-  const { id } = useParams<{ id: string }>();
+const ServiceDetail = ({ forcedId }: { forcedId?: string }) => {
+  const { id: routeId } = useParams<{ id: string }>();
+  const id = forcedId || routeId;
   const services = servicesData;
   const service = services.find((s) => s.id === id);
 
@@ -881,6 +945,13 @@ const ServiceDetail = () => {
       'Implement, measure, and optimize toward business KPIs.',
     ],
     businessKpis: ['Delivery velocity', 'Operational efficiency', 'Business impact score'],
+  };
+
+  const mediaContent = serviceMediaContent[id || ''] || {
+    image: service?.image || '/Logo.png',
+    caption: 'Service delivery visual overview',
+    detail: 'Practical delivery model tailored to your business context and growth goals.',
+    proofPoints: ['Business-aligned execution', 'Measurable outcomes', 'Scalable implementation'],
   };
 
   useEffect(() => {
@@ -2062,6 +2133,27 @@ const ServiceDetail = () => {
                   <li key={item} className="text-sm text-gray-200 leading-relaxed font-medium">• {item}</li>
                 ))}
               </ul>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Service Media */}
+      <section className="py-20">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-6 items-center">
+            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03]">
+              <img src={mediaContent.image} alt={`${service.title} solution visual`} loading="lazy" decoding="async" className="w-full h-[300px] object-cover" />
+            </motion.div>
+            <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+              <p className="text-xs uppercase tracking-wide text-blue-300">Dedicated Service Intelligence</p>
+              <h3 className="text-2xl font-semibold text-white mt-3 mb-3">{mediaContent.caption}</h3>
+              <p className="text-gray-300 text-sm leading-relaxed mb-4">{mediaContent.detail}</p>
+              <div className="space-y-2">
+                {mediaContent.proofPoints.map((point) => (
+                  <div key={point} className="text-sm text-gray-200">• {point}</div>
+                ))}
+              </div>
             </motion.div>
           </div>
         </div>
