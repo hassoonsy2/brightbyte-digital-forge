@@ -4,7 +4,6 @@ import {
   Mail, Send, CheckCircle, X,
   MessageSquare, Users,
   Calendar, ChevronRight, Check, ArrowRight, MapPin,
-  Phone
 } from 'lucide-react';
 import { toast } from 'sonner';
 import emailjs from '@emailjs/browser';
@@ -64,31 +63,65 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const isEmailJsConfigured = () => {
+    const values = [emailConfig.serviceId, emailConfig.templateId, emailConfig.publicKey];
+    return values.every((v) => v && !v.toLowerCase().includes('your_'));
+  };
+
+  const validateStep = (step: number) => {
+    if (step === 0) {
+      if (!formData.firstName.trim() || !formData.lastName.trim() || !formData.email.trim()) {
+        toast.error('Please fill in first name, last name, and email.');
+        return false;
+      }
+    }
+
+    if (step === 1) {
+      if (!formData.service) {
+        toast.error('Please select a service.');
+        return false;
+      }
+    }
+
+    if (step === 2) {
+      if (!formData.message.trim()) {
+        toast.error('Please add a project message.');
+        return false;
+      }
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!validateStep(2)) return;
+
+    if (!isEmailJsConfigured()) {
+      toast.error('Contact form email is not configured yet. Please contact info@bright-byte.co directly.');
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
       const templateParams = {
-        name: `${formData.firstName} ${formData.lastName}`,
+        name: `${formData.firstName} ${formData.lastName}`.trim(),
+        first_name: formData.firstName,
+        last_name: formData.lastName,
         email: formData.email,
-        company: formData.company,
-        budget: formData.budget,
+        company: formData.company || 'Not provided',
+        budget: formData.budget || 'Not specified',
         service: formData.service,
         message: formData.message,
-        time: new Date().toLocaleString('en-GB', { 
+        time: new Date().toLocaleString('en-GB', {
           timeZone: 'Europe/Amsterdam',
           dateStyle: 'short',
           timeStyle: 'short'
         }),
         reply_to: formData.email,
       };
-
-      if (!emailConfig.serviceId || emailConfig.serviceId.includes('your_')) {
-        toast.error('Email service not configured');
-        setIsSubmitting(false);
-        return;
-      }
 
       const result = await emailjs.send(
         emailConfig.serviceId,
@@ -104,32 +137,42 @@ const Contact = () => {
         setFormStep(0);
         trackContactFormSubmission();
 
-        // Try auto-reply
         try {
-          const autoReplyParams = {
-            name: formData.firstName,
-            email: formData.email,
-            from_name: 'Bright-Byte Team',
-            reply_to: 'info@bright-byte.co',
-          };
-          await emailjs.send(
-            emailConfig.serviceId,
-            emailConfig.autoReplyTemplateId,
-            autoReplyParams,
-            emailConfig.publicKey
-          );
-        } catch (e) {
+          if (emailConfig.autoReplyTemplateId && !emailConfig.autoReplyTemplateId.includes('your_')) {
+            const autoReplyParams = {
+              name: formData.firstName,
+              email: formData.email,
+              from_name: 'Bright-Byte Team',
+              reply_to: 'info@bright-byte.co',
+            };
+            await emailjs.send(
+              emailConfig.serviceId,
+              emailConfig.autoReplyTemplateId,
+              autoReplyParams,
+              emailConfig.publicKey
+            );
+          }
+        } catch {
           console.log('Auto-reply failed, but main email sent');
         }
       }
-    } catch (error) {
-      toast.error('Failed to send message. Please try again.');
+    } catch (error: any) {
+      const status = error?.status || error?.response?.status;
+      if (status === 412) {
+        toast.error('Email delivery rejected (412). Check EmailJS template fields and sender domain settings.');
+      } else {
+        toast.error('Failed to send message. Please try again.');
+      }
+      console.error('Contact form error:', error);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const nextStep = () => setFormStep(prev => Math.min(prev + 1, 2));
+  const nextStep = () => {
+    if (!validateStep(formStep)) return;
+    setFormStep(prev => Math.min(prev + 1, 2));
+  };
   const prevStep = () => setFormStep(prev => Math.max(prev - 1, 0));
 
   const steps = [
