@@ -729,6 +729,139 @@ const defaultContent = {
   ],
 };
 
+const serviceStrategyContent: Record<string, { problems: string[]; solutionBlueprint: string[]; businessKpis: string[] }> = {
+  'ai-consulting': {
+    problems: [
+      'Teams have AI ideas but no execution roadmap tied to measurable business value.',
+      'Data is fragmented, making model quality and trust inconsistent across departments.',
+      'Leadership needs governance and security guardrails before scaling AI adoption.',
+    ],
+    solutionBlueprint: [
+      'AI opportunity mapping with ROI scoring and use-case prioritization.',
+      'Data and model architecture with governance, risk controls, and rollout sequencing.',
+      'Production pilot delivery with KPI tracking and scale plan by business function.',
+    ],
+    businessKpis: ['AI adoption rate', 'Decision-cycle reduction', 'Model-to-production time'],
+  },
+  'software-development': {
+    problems: [
+      'Off-the-shelf tools block custom workflows and cross-team coordination.',
+      'Legacy systems increase maintenance cost and slow product delivery speed.',
+      'Engineering teams lack architecture standards for scale and reliability.',
+    ],
+    solutionBlueprint: [
+      'Architecture-first platform design aligned to business-critical workflows.',
+      'Iterative MVP-to-scale development with integration and QA hardening.',
+      'CI/CD, observability, and clean handover to internal teams.',
+    ],
+    businessKpis: ['Release velocity', 'Uptime/SLA performance', 'Cost-to-maintain reduction'],
+  },
+  'automation': {
+    problems: [
+      'Manual repetitive work slows operations and creates avoidable human errors.',
+      'Disconnected tools cause delays in sales, support, and back-office workflows.',
+      'Automation attempts fail due to poor exception handling and visibility.',
+    ],
+    solutionBlueprint: [
+      'Workflow audit and automation blueprint (n8n/Make/API).',
+      'Reliable orchestration with retries, fallbacks, alerts, and human approvals.',
+      'AI-assisted routing/classification to accelerate high-volume operations.',
+    ],
+    businessKpis: ['Manual effort reduced', 'Cycle-time improvement', 'Workflow failure rate'],
+  },
+  'machine-learning': {
+    problems: [
+      'Forecasting and scoring decisions rely on static reports instead of live models.',
+      'Data science experiments do not reliably move into production systems.',
+      'Teams need explainable ML outcomes for trust and compliance.',
+    ],
+    solutionBlueprint: [
+      'Feature engineering and baseline modeling for measurable uplift.',
+      'Model validation, explainability, and deployment pipeline setup.',
+      'MLOps monitoring for drift, retraining, and stable long-term performance.',
+    ],
+    businessKpis: ['Prediction accuracy', 'False-positive reduction', 'Time-to-insight'],
+  },
+  'web-development': {
+    problems: [
+      'Slow websites leak conversions and underperform in competitive search.',
+      'Inconsistent UX and messaging reduce trust and lead quality.',
+      'Web platforms cannot scale cleanly with growth and new features.',
+    ],
+    solutionBlueprint: [
+      'Conversion-focused UX and component-driven frontend architecture.',
+      'SEO and Core Web Vitals optimization from day one.',
+      'Scalable integrations with CMS, APIs, and analytics instrumentation.',
+    ],
+    businessKpis: ['Core Web Vitals score', 'Conversion-rate uplift', 'Organic traffic quality'],
+  },
+  'mobile-development': {
+    problems: [
+      'Poor onboarding and performance issues hurt retention after install.',
+      'Cross-platform apps often compromise quality or release speed.',
+      'Teams need clear release and analytics workflows for growth.',
+    ],
+    solutionBlueprint: [
+      'Product-led mobile architecture for iOS/Android from one roadmap.',
+      'Performance-first implementation with robust QA and crash prevention.',
+      'Analytics, push strategy, and release operations for steady growth.',
+    ],
+    businessKpis: ['Activation rate', 'Retention (D30)', 'Crash-free sessions'],
+  },
+  'data-marketing': {
+    problems: [
+      'Marketing spend is high but attribution clarity is low.',
+      'Campaigns lack a testing framework tied to revenue goals.',
+      'Teams need predictable pipeline growth with lower CAC.',
+    ],
+    solutionBlueprint: [
+      'End-to-end tracking architecture and dashboard instrumentation.',
+      'Funnel strategy with experiments across paid, organic, and CRM.',
+      'Continuous optimization loops based on channel-level ROI.',
+    ],
+    businessKpis: ['CAC trend', 'ROAS by channel', 'Pipeline contribution'],
+  },
+  'seo': {
+    problems: [
+      'Technical SEO debt suppresses rankings even with good content.',
+      'Content is not mapped to search intent or buying stages.',
+      'Businesses need compounding traffic growth, not short-term spikes.',
+    ],
+    solutionBlueprint: [
+      'Technical audit, indexation fixes, and performance remediation.',
+      'Keyword-to-page architecture and authority content roadmap.',
+      'Structured data + internal linking for sustained ranking gains.',
+    ],
+    businessKpis: ['Top-10 keyword count', 'Organic conversions', 'Non-branded traffic growth'],
+  },
+  'social-media': {
+    problems: [
+      'Content output is inconsistent and not aligned with business objectives.',
+      'Engagement does not translate into demand or qualified leads.',
+      'Teams lack a repeatable system for creative production and optimization.',
+    ],
+    solutionBlueprint: [
+      'Platform-specific strategy mapped to audience and funnel stage.',
+      'Content pillar system with production workflow and publishing cadence.',
+      'Performance analysis with iterative creative and targeting improvements.',
+    ],
+    businessKpis: ['Engagement quality', 'Inbound lead volume', 'Audience growth velocity'],
+  },
+  'design-content': {
+    problems: [
+      'Brand communication is inconsistent across sales, product, and marketing.',
+      'Visual identity lacks clarity and trust for premium positioning.',
+      'Content and design teams need reusable systems for speed and consistency.',
+    ],
+    solutionBlueprint: [
+      'Brand and messaging foundation aligned with business positioning.',
+      'Design system and creative templates for multi-channel consistency.',
+      'Conversion-oriented content framework for websites, campaigns, and product.',
+    ],
+    businessKpis: ['Brand consistency score', 'Creative production speed', 'Landing-page engagement'],
+  },
+};
+
 // ─── Component ──────────────────────────────────────────────────────
 const ServiceDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -736,6 +869,19 @@ const ServiceDetail = () => {
   const service = services.find((s) => s.id === id);
 
   const content = serviceContent[id || ''] || defaultContent;
+  const strategyContent = serviceStrategyContent[id || ''] || {
+    problems: [
+      'Unclear delivery priorities across teams.',
+      'Technology decisions not tied to business outcomes.',
+      'Execution speed impacted by system complexity.',
+    ],
+    solutionBlueprint: [
+      'Assess workflows, constraints, and opportunities.',
+      'Design practical architecture and phased execution plan.',
+      'Implement, measure, and optimize toward business KPIs.',
+    ],
+    businessKpis: ['Delivery velocity', 'Operational efficiency', 'Business impact score'],
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -1886,6 +2032,40 @@ const ServiceDetail = () => {
           </div>
         </section>
       )}
+
+      {/* Problems / Solutions / KPI framing */}
+      <section className="py-24 border-y border-white/5 bg-white/[0.02]">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid lg:grid-cols-3 gap-6">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+              <span className="text-xs uppercase tracking-wide text-red-300">Problems We Solve</span>
+              <ul className="mt-4 space-y-3">
+                {strategyContent.problems.map((item) => (
+                  <li key={item} className="text-sm text-gray-300 leading-relaxed">• {item}</li>
+                ))}
+              </ul>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.08 }} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+              <span className="text-xs uppercase tracking-wide text-blue-300">Solution Blueprint</span>
+              <ul className="mt-4 space-y-3">
+                {strategyContent.solutionBlueprint.map((item) => (
+                  <li key={item} className="text-sm text-gray-300 leading-relaxed">• {item}</li>
+                ))}
+              </ul>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.16 }} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+              <span className="text-xs uppercase tracking-wide text-emerald-300">Primary KPI Targets</span>
+              <ul className="mt-4 space-y-3">
+                {strategyContent.businessKpis.map((item) => (
+                  <li key={item} className="text-sm text-gray-200 leading-relaxed font-medium">• {item}</li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
       {/* Capabilities */}
       <section className="py-24">
