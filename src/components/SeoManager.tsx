@@ -313,7 +313,9 @@ const SeoManager = () => {
 
     upsertMeta('name', 'title', seo.title);
     upsertMeta('name', 'description', seo.description);
-    upsertMeta('name', 'keywords', seo.keywords || '');
+    if (seo.keywords) {
+      upsertMeta('name', 'keywords', seo.keywords);
+    }
     upsertMeta('name', 'robots', seo.robots || 'index, follow');
     upsertMeta('name', 'author', 'Bright-Byte');
     upsertMeta('name', 'theme-color', '#0f172a');
